@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Styles/MainStyle.css" rel="stylesheet" />
+    <title>@RenderSection("Title", false)</title>
+</head>
+<body>
+    <div class=”main-container”>
+        <header>
+            <a class="NavButtons" asp-action="Index" asp-controller="Home">Home</a>
+            <a class="NavButtons" asp-action="Collection" asp-controller="Home">Collection</a>
+        </header>
+        <footer>
+            The Collectors &copy; @DateTime.Now.Year
+        </footer>
+    </div>
+    @RenderBody()
+</body>
+</html>

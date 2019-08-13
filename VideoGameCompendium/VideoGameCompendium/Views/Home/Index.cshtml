@@ -1,0 +1,21 @@
+﻿
+
+@section Title
+{
+    Home
+}
+
+<a href="~/Account/SignUp">Sign Up</a>
+
+<div class="indexContent">
+    <h1 class="indexTitle">Welcome!</h1>
+    @if(User.Identity.Name == null)
+    {
+
+    }
+    else
+    {
+        <span>Hello @User.Identity.Name</span> 
+        <a asp-action="Logout" asp-controller="Account">Logout</a>
+    }
+</div>

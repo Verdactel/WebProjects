@@ -1,0 +1,70 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+html,
+body {
+    background-color: grey;
+    margin: 0;
+    height: 100%;
+    position: relative;
+}
+
+.main-container {
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 50px; /* needs to be the height of the footer */
+}
+
+header {
+    background-color: white;
+    color: black;
+    height: 50px;
+    padding: 10px 0px 0px 0px;
+}
+
+footer {
+    background-color: white;
+    color: black;
+    position: absolute;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    padding-top: 10px;
+}
+
+.NavButtons {
+    outline: none;
+    text-decoration: none;
+    display: inline-block;
+    color: black;
+    border: solid 1px;
+    text-align: center;
+    font-size: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 0.625%;
+    margin-left: 1%;
+}
+
+.NavButtons:link, a:visited, a:focus {
+    background-color: white;
+}
+
+.NavButtons:hover {
+    background-color: grey;
+}
+
+.NavButtons:active {
+    background-color: black;
+    color: white;
+}

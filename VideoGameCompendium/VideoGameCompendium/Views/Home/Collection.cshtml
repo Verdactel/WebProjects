@@ -1,0 +1,31 @@
+﻿@using VideoGameCompendium.Models;
+@model List<Game>
+
+@section Title{
+    Video Game Collection
+}
+
+<div class="buttonToggle">
+    <form class="listView" action="/Home/Collection" method="post">
+        <input type="hidden" name="style" value="0" />
+        <input type="submit" name="list" />
+    </form>
+    <form class="gridView" action="/Home/Collection" method="post">
+        <input type="hidden" name="style" value="1" />
+        <input type="submit" name="grid" />
+    </form>
+</div>
+
+
+@if (ViewBag.Style == 1)
+{
+    <div class="collectionInfo">
+        <partial name="_DisplayTilePartial" model="@Model" />
+    </div>
+}
+else
+{
+    <div class="collectionInfo">
+        <partial name="_DisplayColumnPartial" model="@Model" />
+    </div>
+}
