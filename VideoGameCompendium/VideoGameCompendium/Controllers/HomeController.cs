@@ -15,8 +15,7 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            bool b = db.CheckForUsername("Iaro");
-
+            
             return View();
         }
 
