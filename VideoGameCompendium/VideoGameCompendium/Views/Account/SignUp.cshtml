@@ -6,7 +6,15 @@
 
 <div class="SignupContainer">
     <form class="SignupForm" action="~/Account/SignUp" method="post">
+        @if(ViewBag.UsernameError != null)
+        {
+            <p>@ViewBag.UsernameError</p>
+        }
         <input type="text" name="Username" required placeholder="Username" value="@(ViewBag.Username != null ? ViewBag.Username : "")" />
+        @if(ViewBag.PasswordError != null)
+        {
+            <p>@ViewBag.PasswordError</p>
+        }
         <input type="password" name="Password" required placeholder="Password" />
         <input type="password" name="ConfirmPassword" required placeholder="Confirm Password" />
         @*Image*@
