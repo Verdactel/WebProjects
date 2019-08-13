@@ -19,22 +19,17 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string userName, string password)
+        public IActionResult Login(string username, string password)
         {
-            if (!string.IsNullOrEmpty(userName) && string.IsNullOrEmpty(password))
-            {
-                return RedirectToAction("Login");
-            }
-
             //Check the user name and password  
             //Here can be implemented checking logic from the database  
 
-            if (userName == "Admin" && password == "password")
+            if (HomeController.db.CheckLogin(username, password) != null)
             {
 
                 //Create the identity for the user  
                 var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, userName)
+                    new Claim(ClaimTypes.Name, username)
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var principal = new ClaimsPrincipal(identity);
@@ -62,18 +57,35 @@ namespace VideoGameCompendium.Controllers
         public IActionResult SignUp(string username, string password, string confirmPassword, string image)
         {
             //Validate User
-            ValidateInput(username, password, confirmPassword);
+            if(!ValidateInput(username, password, confirmPassword))
+            {
+                ViewBag.Username = username;
+                return View();
+            }
 
             //Create User
-            User user = new User(username, password, null, image, false);
+            User user = new User(username, password, "", "", false);
 
             HomeController.db.InsertUser(ref user);
+            
+            //Create the identity for the user  
+            var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, username)
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             return RedirectToAction("Index", "Home");
         }
 
 
         private bool ValidateInput(string username, string password, string confirmPassword)
         {
+            //Set Viewbag
+            ViewBag.ErrorCount = 0;
+
             //Check null or empty
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -82,7 +94,12 @@ namespace VideoGameCompendium.Controllers
             }
             else
             {
-
+                //Check if username exists
+                if (HomeController.db.CheckForUsername(username))
+                {
+                    ViewBag.UsernameError = "Username already exists";
+                    return false;
+                }
             }
 
             if(string.IsNullOrWhiteSpace(password))
@@ -101,10 +118,8 @@ namespace VideoGameCompendium.Controllers
 
             //Check for character minimum/maximum
 
-            //Check if username exists
 
-
-            return false;
+            return ViewBag.ErrorCount == 0;
         }
     }
 }

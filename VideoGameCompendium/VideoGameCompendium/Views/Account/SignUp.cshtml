@@ -1,12 +1,12 @@
 ﻿
 
-@section Title{ 
+@section Title{
     Sign Up
 }
 
 <div class="SignupContainer">
     <form class="SignupForm" action="~/Account/SignUp" method="post">
-        <input type="text" name="Username" required placeholder="Username" />
+        <input type="text" name="Username" required placeholder="Username" value="@(ViewBag.Username != null ? ViewBag.Username : "")" />
         <input type="password" name="Password" required placeholder="Password" />
         <input type="password" name="ConfirmPassword" required placeholder="Confirm Password" />
         @*Image*@
