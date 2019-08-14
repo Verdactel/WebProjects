@@ -5,27 +5,52 @@
     Video Game Collection
 }
 
+@section AddToHead{
+    <link href="@Url.Content("~/Styles/CollectionStyle.css")" rel="stylesheet" />
+}
+
 <div class="buttonToggle">
-    <form class="listView" action="/Home/Collection" method="post">
-        <input type="hidden" name="style" value="0" />
-        <input type="submit" name="list" />
-    </form>
-    <form class="gridView" action="/Home/Collection" method="post">
-        <input type="hidden" name="style" value="1" />
-        <input type="submit" name="grid" />
-    </form>
+    <button onclick="ListDisplay()" id="listBtn">List</button>
+    <button onclick="GridDisplay()" id="gridBtn">Grid</button>
 </div>
 
+<div class="DisplayContainer">
+    <div class="List" id="list">
+        <p>Here's some information.</p>
+    </div>
+</div>
 
-@if (ViewBag.Style == 1)
-{
-    <div class="collectionInfo">
-        <partial name="_DisplayTilePartial" model="@Model" />
-    </div>
-}
-else
-{
-    <div class="collectionInfo">
-        <partial name="_DisplayColumnPartial" model="@Model" />
-    </div>
-}
+<script>
+    function ListDisplay() {
+        document.getElementById("list").className = "List";
+    }
+
+    function GridDisplay() {
+        document.getElementById("list").className = "Grid";
+    }
+</script>
+
+@*<div class="buttonToggle">
+        <form class="listView" action="/Home/Collection" method="post">
+            <input type="hidden" name="style" value="0" />
+            <input type="submit" name="list" />
+        </form>
+        <form class="gridView" action="/Home/Collection" method="post">
+            <input type="hidden" name="style" value="1" />
+            <input type="submit" name="grid" />
+        </form>
+    </div>*@
+
+
+@*@if (ViewBag.Style == 1)
+    {
+        <div class="collectionInfo">
+            <partial name="_DisplayTilePartial" model="@Model" />
+        </div>
+    }
+    else
+    {
+        <div class="collectionInfo">
+            <partial name="_DisplayColumnPartial" model="@Model" />
+        </div>
+    }*@
