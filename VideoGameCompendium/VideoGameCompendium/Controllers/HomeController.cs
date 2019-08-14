@@ -24,14 +24,5 @@ namespace VideoGameCompendium.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public IActionResult Collection(string style)
-        {
-            int val = int.Parse(style);
-            ViewBag.Style = val;
-
-            return View();
-        }
     }
 }
