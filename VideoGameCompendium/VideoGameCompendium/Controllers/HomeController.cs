@@ -15,8 +15,6 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            Game g = db.GetGameByID(3271);
-
             return View();
         }
 
@@ -24,15 +22,14 @@ namespace VideoGameCompendium.Controllers
         [HttpGet]
         public IActionResult Collection()
         {
-            return View();
-        }
+            //find user based on login
+                //db.GetUserByID
 
-        [HttpPost]
-        public IActionResult Collection(string style)
-        {
-            int val = int.Parse(style);
-            ViewBag.Style = val;
+            //query user collection
+                //List<Game> collection = db.GetCollection(userId);
 
+            //return user collection as list
+                //return View(collection);
             return View();
         }
     }
