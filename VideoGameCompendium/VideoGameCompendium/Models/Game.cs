@@ -7,25 +7,23 @@ namespace VideoGameCompendium.Models
 {
     public class Game
     {
-        public readonly string Image;
-        public readonly string Title;
-        public readonly string[] Platforms;
-        public readonly string[] Genres;
-        public readonly string[] ESRB;
-        public readonly string[] ReleaseDate;
-        public readonly string Description;
-        //screenshots
+        public int Id;
+        public string Image;
+        public string Title;
+        public string Description;
+        public List<string> Platforms;
+        public List<string> Genres;
+        public string[] ESRB;
+        public DateTime ReleaseDate;
 
-
-        public Game(string image, string title, string[] platforms, string[] genres, string[] esrb, string[] releaseDate, string description)
+        public Game(int id, string title, string description, DateTime releaseDate)
         {
-            Image = image;
+            Id = id;
             Title = title;
-            Platforms = platforms;
-            Genres = genres;
-            ESRB = esrb;
-            ReleaseDate = releaseDate;
             Description = description;
+            ReleaseDate = releaseDate;
+            Platforms = new List<string>();
+            Genres = new List<string>();
         }
 
     }
