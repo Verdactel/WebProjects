@@ -30,7 +30,7 @@ namespace DBScraper
         static async Task GetAPI(int offset, string searchWord)
         {
             string myJson = "{'user-key': 'c5f344d6e5861ca256da27246e274fba', 'Accept': 'application/json'}";
-            string url = "https://api-v3.igdb.com/games?search="+searchWord+"&fields=name,id,platforms,genres,age_ratings,release_dates,cover,summary,artworks&limit=50&offset=" + (offset*50);
+            string url = "https://api-v3.igdb.com/games?search="+searchWord+ "&fields=name,id,platforms,genres,age_ratings,first_release_date,cover,summary,artworks&limit=50&offset=" + (offset*50);
             //string url = "https://api-v3.igdb.com/platforms?&fields=id,name,abbreviation&limit=50&offset=" + (offset*50);
             
             var webRequest = System.Net.WebRequest.Create(url);
@@ -58,7 +58,7 @@ namespace DBScraper
                             {
                                 BsonDocument doc = BsonDocument.Parse(o.ToString());
 
-                                if (doc.TryGetValue("name", out dummy) && doc.TryGetValue("release_dates", out dummy) && doc.TryGetValue("cover", out dummy) && doc.TryGetValue("summary", out dummy))
+                                if (doc.TryGetValue("name", out dummy) && doc.TryGetValue("first_release_date", out dummy) && doc.TryGetValue("cover", out dummy) && doc.TryGetValue("summary", out dummy))
                                     docs.Add(doc);
                             }
                             await collection.InsertManyAsync(docs);

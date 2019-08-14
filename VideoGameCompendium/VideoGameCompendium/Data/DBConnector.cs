@@ -176,22 +176,66 @@ namespace VideoGameCompendium.Data
 
         public List<Game> BrowseGames(string search, string platform, string genre, string maxEsrb)
         {
+
+
             return null;
         }
 
-        public Game GetGameByID(string id)
+        public Game GetGameByID(Int32 id)
         {
-            return null;
+            Game game;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["id"] = id;
+                var docs = Games.Find(queryDoc).ToList();
+                var doc = docs.First();
+                game = new Game(doc["id"].AsInt32, doc["name"].AsString, doc["summary"].AsString, UnixTimeStampToDateTime(doc["first_release_date"].AsInt32));
+                foreach (var v in doc["platforms"].AsBsonArray) { game.Platforms.Add(GetPlatformByID(v.AsInt32, true)); }
+                foreach (var v in doc["genres"].AsBsonArray) { game.Genres.Add(GetGenreByID(v.AsInt32)); }
+                game.Image = APIConnector.GetCoverById(doc["cover"].AsInt32);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+
+            return game;
         }
 
-        public Game GetGenreByID(string id)
+        public string GetGenreByID(Int32 id)
         {
-            return null;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["id"] = id;
+                var doc = Genres.Find(queryDoc).ToList().First();
+                return doc["name"].AsString;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
 
-        public Game GetPlatformByID(string id)
+        public string GetPlatformByID(Int32 id, bool preferShort)
         {
-            return null;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["id"] = id;
+                var doc = Platforms.Find(queryDoc).ToList().First();
+                if (preferShort && doc["abbreviation"] != null)
+                    return doc["abbreviation"].AsString;
+                return doc["name"].AsString;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
 
         public bool AddToCollection(string userId, string gameId)
@@ -212,6 +256,14 @@ namespace VideoGameCompendium.Data
         public bool RemoveFromFavorites(string userId, string gameId)
         {
             return false;
+        }
+
+        public static DateTime UnixTimeStampToDateTime(Int32 unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }
