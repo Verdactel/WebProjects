@@ -23,10 +23,13 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
+                //db.GetUserByID
 
             //query user collection
+                //List<Game> collection = db.GetCollection(userId);
 
             //return user collection as list
+                //return View(collection);
             return View();
         }
     }

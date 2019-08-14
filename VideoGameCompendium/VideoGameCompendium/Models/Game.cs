@@ -7,13 +7,13 @@ namespace VideoGameCompendium.Models
 {
     public class Game
     {
-        readonly string Image;
-        readonly string Title;
-        readonly string[] Platforms;
-        readonly string[] Genres;
-        readonly string[] ESRB;
-        readonly string[] ReleaseDate;
-        readonly string Description;
+        public readonly string Image;
+        public readonly string Title;
+        public readonly string[] Platforms;
+        public readonly string[] Genres;
+        public readonly string[] ESRB;
+        public readonly string[] ReleaseDate;
+        public readonly string Description;
         //screenshots
 
 
