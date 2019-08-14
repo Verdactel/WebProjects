@@ -22,6 +22,11 @@ namespace VideoGameCompendium.Controllers
         [HttpGet]
         public IActionResult Collection()
         {
+            //find user based on login
+
+            //query user collection
+
+            //return user collection as list
             return View();
         }
     }
