@@ -16,15 +16,13 @@
 
 <div class="DisplayContainer">
     <div class="List" id="display">
-        <p>Here's some information.</p>
+        @*<p>Here's some information.</p>*@
+        <partial name="_DisplayCollectionPartial"/>
+
         @* Display Information based on class *@
         @*@foreach (Game game in Model)
         {
-            <div class="gameDesign" id="game">
-                <div class="gameImage" id="gameImage">@game.Image</div>
-                <div class="gameTitle" id="gameTitle">@game.Title</div>
-                <div class="gameDesc" id="gameDesc">@game.Description</div>
-            </div>
+            <partial name="_DisplayCollectionPartial" model="@game" />
         }*@
     </div>
 </div>
@@ -33,11 +31,11 @@
     var element = document.getElementById("display");
     function ListDisplay() {
         element.className = "List";
-        //document.getElementById("gameDesc").hidden = false;
+        //document.getElementById("test").hidden = false;
     }
 
     function GridDisplay() {
         element.className = "Grid";
-        //document.getElementById("gameDesc").hidden = true;
+        //document.getElementById("test").hidden = true;
     }
 </script>
