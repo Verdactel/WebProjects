@@ -16,7 +16,6 @@
 
 <div class="DisplayContainer">
     <div class="List" id="display">
-        @*<p>Here's some information.</p>*@
         <partial name="_DisplayCollectionPartial"/>
 
         @* Display Information based on class *@
@@ -31,11 +30,9 @@
     var element = document.getElementById("display");
     function ListDisplay() {
         element.className = "List";
-        //document.getElementById("test").hidden = false;
     }
 
     function GridDisplay() {
         element.className = "Grid";
-        //document.getElementById("test").hidden = true;
     }
 </script>
