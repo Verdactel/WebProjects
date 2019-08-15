@@ -190,10 +190,33 @@ namespace VideoGameCompendium.Data
                 queryDoc["id"] = id;
                 var docs = Games.Find(queryDoc).ToList();
                 var doc = docs.First();
-                game = new Game(doc["id"].AsInt32, doc["name"].AsString, doc["summary"].AsString, UnixTimeStampToDateTime(doc["first_release_date"].AsInt32));
-                foreach (var v in doc["platforms"].AsBsonArray) { game.Platforms.Add(GetPlatformByID(v.AsInt32, true)); }
-                foreach (var v in doc["genres"].AsBsonArray) { game.Genres.Add(GetGenreByID(v.AsInt32)); }
-                game.Image = APIConnector.GetCoverById(doc["cover"].AsInt32);
+                game = new Game(doc["id"].AsInt32, doc["name"].AsString, doc["summary"].AsString, UnixTimeStampToDateTime(doc["first_release_date"].AsInt32), doc["cover"].AsString);
+                if (int.TryParse(game.Image, out int coverID))
+                {
+                    foreach (var v in doc["platforms"].AsBsonArray) { game.Platforms.Add(GetPlatformByID(v.AsInt32, true)); }
+                    foreach (var v in doc["genres"].AsBsonArray) { game.Genres.Add(GetGenreByID(v.AsInt32)); }
+                    game.Image = APIConnector.GetCoverById(coverID);
+                    if (doc.TryGetValue("age_ratings", out var dummy))
+                    {
+                        var ratings = doc["age_ratings"].AsBsonArray;
+                        doc.Remove("age_ratings");
+                        foreach (var r in ratings)
+                        {
+                            string esrb = APIConnector.GetESRBById(r.AsInt32);
+                            if (!string.IsNullOrEmpty(esrb))
+                            {
+                                game.ESRB = esrb;
+                                break;
+                            }
+                        }
+                    }
+
+                    doc["cover"] = game.Image;
+                    doc["esrb"] = game.ESRB;
+                    var query = new BsonDocument();
+                    query["_id"] = doc["_id"].AsObjectId;
+                    Games.ReplaceOne(query, doc);
+                }
             }
             catch (Exception e)
             {
@@ -260,7 +283,6 @@ namespace VideoGameCompendium.Data
 
         public static DateTime UnixTimeStampToDateTime(Int32 unixTimeStamp)
         {
-            // Unix timestamp is seconds past epoch
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;

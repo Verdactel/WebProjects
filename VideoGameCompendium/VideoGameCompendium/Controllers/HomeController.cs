@@ -15,6 +15,8 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
+            Game g = db.GetGameByID(11659);
+
             return View();
         }
 
