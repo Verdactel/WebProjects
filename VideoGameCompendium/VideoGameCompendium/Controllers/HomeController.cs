@@ -25,13 +25,13 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-                //db.GetUserByID
+            User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
 
             //query user collection
-                //List<Game> collection = db.GetCollection(userId);
+            List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
-                //return View(collection);
+            //return View(collection);
             return View();
         }
     }

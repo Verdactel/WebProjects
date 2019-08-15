@@ -16,14 +16,13 @@
 
 <div class="DisplayContainer">
     <div class="List" id="display">
-        <p>Here's some information.</p>
-        @* Display Information based on class *@
-        @foreach (Game game in Model)
-        {
-            <div class="gameDesign" id="game">
+        <partial name="_DisplayCollectionPartial"/>
 
-            </div>
-        }
+        @* Display Information based on class *@
+        @*@foreach (Game game in Model)
+        {
+            <partial name="_DisplayCollectionPartial" model="@game" />
+        }*@
     </div>
 </div>
 
@@ -31,11 +30,9 @@
     var element = document.getElementById("display");
     function ListDisplay() {
         element.className = "List";
-        //document.getElementById("game").innerHTML =
     }
 
     function GridDisplay() {
         element.className = "Grid";
-        //element.innerHTML = 
     }
 </script>

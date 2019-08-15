@@ -34,7 +34,8 @@ namespace VideoGameCompendium.Controllers
                 var principal = new ClaimsPrincipal(identity);
 
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                //Response.Cookies.Append()
+
+                Response.Cookies.Append("userID", HomeController.db.CheckLogin(username, password).ID);
                 return RedirectToAction("Index", "Home");
             }
 
