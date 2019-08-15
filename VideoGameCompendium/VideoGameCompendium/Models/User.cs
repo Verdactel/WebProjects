@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VideoGameCompendium.Data;
 
 namespace VideoGameCompendium.Models
 {
@@ -13,7 +14,6 @@ namespace VideoGameCompendium.Models
         public string Bio;
         public string Image;
         public bool IsAdmin;
-        List<Game> Collection = null;
 
         public User() { }
 
@@ -24,8 +24,7 @@ namespace VideoGameCompendium.Models
             Bio = bio;
             Image = image;
             IsAdmin = isAdmin;
-
-            Collection = new List<Game>();
+            
         }
     }
 }
