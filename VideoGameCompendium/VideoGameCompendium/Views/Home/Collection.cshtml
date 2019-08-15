@@ -5,27 +5,37 @@
     Video Game Collection
 }
 
+@section AddToHead{
+    <link href="@Url.Content("~/Styles/CollectionStyle.css")" rel="stylesheet" />
+}
+
 <div class="buttonToggle">
-    <form class="listView" action="/Home/Collection" method="post">
-        <input type="hidden" name="style" value="0" />
-        <input type="submit" name="list" />
-    </form>
-    <form class="gridView" action="/Home/Collection" method="post">
-        <input type="hidden" name="style" value="1" />
-        <input type="submit" name="grid" />
-    </form>
+    <button class="listBtn" onclick="ListDisplay()">List</button>
+    <button class="gridBtn" onclick="GridDisplay()">Grid</button>
 </div>
 
+<div class="DisplayContainer">
+    <div class="List" id="display">
+        @*<p>Here's some information.</p>*@
+        <partial name="_DisplayCollectionPartial"/>
 
-@if (ViewBag.Style == 1)
-{
-    <div class="collectionInfo">
-        <partial name="_DisplayTilePartial" model="@Model" />
+        @* Display Information based on class *@
+        @*@foreach (Game game in Model)
+        {
+            <partial name="_DisplayCollectionPartial" model="@game" />
+        }*@
     </div>
-}
-else
-{
-    <div class="collectionInfo">
-        <partial name="_DisplayColumnPartial" model="@Model" />
-    </div>
-}
+</div>
+
+<script>
+    var element = document.getElementById("display");
+    function ListDisplay() {
+        element.className = "List";
+        //document.getElementById("test").hidden = false;
+    }
+
+    function GridDisplay() {
+        element.className = "Grid";
+        //document.getElementById("test").hidden = true;
+    }
+</script>

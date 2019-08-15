@@ -4,6 +4,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/Styles/MainStyle.css" rel="stylesheet" />
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
     <title>@RenderSection("Title", false)</title>
 </head>
 <body>

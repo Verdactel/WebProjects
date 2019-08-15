@@ -26,7 +26,6 @@ namespace VideoGameCompendium.Controllers
 
             if (HomeController.db.CheckLogin(username, password) != null)
             {
-
                 //Create the identity for the user  
                 var identity = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, username)
@@ -35,7 +34,7 @@ namespace VideoGameCompendium.Controllers
                 var principal = new ClaimsPrincipal(identity);
 
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
+                //Response.Cookies.Append()
                 return RedirectToAction("Index", "Home");
             }
 
