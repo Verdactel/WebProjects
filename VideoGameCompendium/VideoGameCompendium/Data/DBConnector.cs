@@ -174,11 +174,27 @@ namespace VideoGameCompendium.Data
             return null;
         }
 
-        public List<Game> BrowseGames(string search, string platform, string genre, string maxEsrb)
+        public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", string maxEsrb = "")
         {
+            List<Game> result;
+            try
+            {
+                var query =
+                    from doc in Games.AsQueryable<BsonDocument>()
+                    where doc["name"].AsString.Contains("a")
+                    select doc;
 
+                result = new List<Game>();
+                var ids = query.ToList();
+               // ids.ForEach(x => result.Add(GetGameByID(x)));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
 
-            return null;
+            return result;
         }
 
         public Game GetGameByID(Int32 id)
@@ -202,10 +218,11 @@ namespace VideoGameCompendium.Data
                         doc.Remove("age_ratings");
                         foreach (var r in ratings)
                         {
-                            string esrb = APIConnector.GetESRBById(r.AsInt32);
-                            if (!string.IsNullOrEmpty(esrb))
+                            var result = APIConnector.GetESRBById(r.AsInt32);
+                            if (!string.IsNullOrEmpty(result.Item1))
                             {
-                                game.ESRB = esrb;
+                                game.ESRB = result.Item1;
+                                game.ESRBNumeric = result.Item2;
                                 break;
                             }
                         }
@@ -213,6 +230,7 @@ namespace VideoGameCompendium.Data
 
                     doc["cover"] = game.Image;
                     doc["esrb"] = game.ESRB;
+                    doc["esrbNumeric"] = game.ESRBNumeric;
                     var query = new BsonDocument();
                     query["_id"] = doc["_id"].AsObjectId;
                     Games.ReplaceOne(query, doc);

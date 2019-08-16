@@ -46,7 +46,7 @@ namespace VideoGameCompendium.Data
             return null;
         }
 
-        public static string GetESRBById(Int32 id)
+        public static Tuple<string, int> GetESRBById(Int32 id)
         {
             string url = "https://api-v3.igdb.com/age_ratings/" + id + "?fields=rating,rating_cover_url,synopsis,content_descriptions";
 
@@ -94,10 +94,10 @@ namespace VideoGameCompendium.Data
                                     default: rating = "";
                                         break;
                                 }
-                                return rating;
+                                return new Tuple<string, int> (rating, result.AsInt32);
                             }
 
-                            return "";
+                            return null;
                         }
                     }
                 }
