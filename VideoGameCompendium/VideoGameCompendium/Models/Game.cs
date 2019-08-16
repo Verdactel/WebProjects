@@ -14,6 +14,7 @@ namespace VideoGameCompendium.Models
         public List<string> Platforms;
         public List<string> Genres;
         public string ESRB;
+        public int ESRBNumeric;
         public DateTime ReleaseDate;
 
         public Game(int id, string title, string description, DateTime releaseDate, string image)

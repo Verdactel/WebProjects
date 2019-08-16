@@ -15,11 +15,25 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
+            //var g = db.BrowseGames();
+            //db.AddToCollection("UserIDTest1", "GameIDTest1");
+            //db.AddToCollection("Bill", "Uncharted");
+            //db.AddToCollection("Bill", "Battlefield");
+            //db.AddToCollection("Bill", "Witcher 3");
+
+            //db.AddToCollection("Stan", "Titan Quest");
+            //db.AddToCollection("Stan", "Brawl stars");
+            //db.AddToCollection("Stan", "Bloodborn");
+
+            //List<Game> games = db.GetCollection("Bill");
+
+            //db.AddToFavorites("UserIDTest1", "GameIDTest1");
+            //db.RemoveFromFavorites("UserIDTest1", "GameIDTest1");
             List<Game> games = new List<Game>();
 
-            Game g = db.GetGameByID(1817);
-            Game g2 = db.GetGameByID(1820);
-            Game g3 = db.GetGameByID(1818);
+            Game g = db.GetGameByID(59449);
+            Game g2 = db.GetGameByID(12398);
+            Game g3 = db.GetGameByID(96155);
 
             games.Add(g);
             games.Add(g2);
