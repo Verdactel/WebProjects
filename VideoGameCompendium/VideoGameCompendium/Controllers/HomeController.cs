@@ -24,7 +24,7 @@ namespace VideoGameCompendium.Controllers
             games.Add(g);
             games.Add(g2);
             games.Add(g3);
-            //return View(games)
+
             return View(games);
         }
 

@@ -1,11 +1,33 @@
-﻿* {
+﻿@keyframes fadeIn{
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100;
+    }
+}
+
+@keyframes slidetoright{
+    0%{
+        transform:translateX(0px);
+    }
+    100%
+    {
+        transform:translateX(100px);
+    }
+}
+
+
+
+* {
     box-sizing: border-box;
 }
 
-    *:before,
-    *:after {
-        box-sizing: border-box;
-    }
+*:before,
+*:after {
+    box-sizing: border-box;
+}
 
 html,
 body {
@@ -24,47 +46,54 @@ body {
 }
 
 header {
-    background-color: white;
-    color: black;
+    background-color: #171717;
+    color: #171717;
     height: 50px;
-    padding: 10px 0 0 0;
+    padding: 10px 0px 0px 0px;
 }
 
 footer {
-    background-color: white;
-    color: black;
+    background-color: #171717;
+    color: #E02176;
     position: absolute;
-    height: 50px;
+    height: 30px;
     bottom: 0;
     width: 100%;
     text-align: center;
-    font-size: 25px;
+    font-size: 15px;
     padding-top: 10px;
 }
 
-.NavButtons {
-    outline: none;
+/*Base Navigation Button Styling*/
+.NavButtons{
     text-decoration: none;
     display: inline-block;
-    color: black;
-    border: solid 1px;
+    color: white;
     text-align: center;
-    font-size: 25px;
+    font-size: 26px;
+
     padding-left: 5px;
     padding-right: 5px;
     margin-right: 0.625%;
     margin-left: 1%;
+
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+
+    -webkit-transition: color 0.75s;
+    -webkit-animation-name:fadeIn;
+    -webkit-animation-fill-mode:forwards;
+    -webkit-animation-duration:2.0s;
+    -webkit-animation-iteration-count: 1;
 }
 
-.NavButtons:link, a:visited, a:focus {
-    background-color: white;
-}
-
+/*When you hover over one of the buttons*/
 .NavButtons:hover {
-    background-color: grey;
+  color: #E02176;
+  -webkit-transition: color 0.75s;
 }
 
+/*When you click on a button*/
 .NavButtons:active {
-    background-color: black;
-    color: white;
+  color: #B30050;
 }
