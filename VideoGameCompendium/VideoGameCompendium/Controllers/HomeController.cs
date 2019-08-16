@@ -15,7 +15,6 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-<<<<<<< HEAD
             //db.AddToCollection("UserIDTest1", "GameIDTest1");
             //db.AddToCollection("Bill", "Uncharted");
             //db.AddToCollection("Bill", "Battlefield");
@@ -29,10 +28,7 @@ namespace VideoGameCompendium.Controllers
 
             //db.AddToFavorites("UserIDTest1", "GameIDTest1");
             //db.RemoveFromFavorites("UserIDTest1", "GameIDTest1");
-=======
             Game g = db.GetGameByID(11659);
-
->>>>>>> 2335b40166f3b862cfc7d905cb89d9d370f98a9b
             return View();
         }
 
