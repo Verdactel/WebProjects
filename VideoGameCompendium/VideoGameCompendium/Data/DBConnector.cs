@@ -173,10 +173,18 @@ namespace VideoGameCompendium.Data
             try
             {
                 var queryDoc = new BsonDocument();
-                queryDoc["userId"] = new BsonString(userId);
+                queryDoc["userId"] = (userId);
 
-                var result = CollectionConnectors.Find(queryDoc);
+                var result = CollectionConnectors.Find(queryDoc).ToList();
                 
+                for(int i = 0; i < result.Count; i++)
+                { 
+                    int id = result[i]["gameId"].AsInt32;
+                    
+                    Game game = GetGameByID(id);
+                    toReturn.Add(game);
+                }
+
             }
             catch (Exception ex)
             {
@@ -186,9 +194,33 @@ namespace VideoGameCompendium.Data
             return toReturn;
         }
 
-        public List<Game> GetFavorites(string id)
+        public List<Game> GetFavorites(string userId)
         {
-            return null;
+            List<Game> toReturn = new List<Game>();
+
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["userId"] = (userId);
+
+                var result = FavoritesConnector.Find(queryDoc).ToList();
+
+                for (int i = 0; i < result.Count; i++)
+                {
+                    int _id = result[i]["gameId"].AsInt32;
+
+                    Game game = GetGameByID(_id);
+                    toReturn.Add(game);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return toReturn;
+
         }
 
         public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", string maxEsrb = "")
