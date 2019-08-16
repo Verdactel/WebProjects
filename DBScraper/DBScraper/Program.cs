@@ -57,7 +57,7 @@ namespace DBScraper
                             foreach (var o in matches)
                             {
                                 BsonDocument doc = BsonDocument.Parse(o.ToString());
-                                if (doc.TryGetValue("name", out dummy) && doc.TryGetValue("first_release_date", out dummy) && doc.TryGetValue("cover", out dummy) && doc.TryGetValue("summary", out dummy))
+                                if (doc.TryGetValue("name", out dummy) && doc.TryGetValue("first_release_date", out dummy) && doc.TryGetValue("cover", out dummy) && doc.TryGetValue("summary", out dummy) && doc.TryGetValue("genres", out dummy) && doc.TryGetValue("platforms", out dummy))
                                 {
                                     Int32 i = doc["cover"].AsInt32;
                                     doc.Remove("cover");

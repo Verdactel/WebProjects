@@ -31,9 +31,9 @@ namespace VideoGameCompendium.Controllers
             //db.RemoveFromFavorites("UserIDTest1", "GameIDTest1");
             List<Game> games = new List<Game>();
 
-            Game g = db.GetGameByID(59449);
-            Game g2 = db.GetGameByID(12398);
-            Game g3 = db.GetGameByID(96155);
+            Game g = db.GetGameByID(4423);
+            Game g2 = db.GetGameByID(12862);
+            Game g3 = db.GetGameByID(6033);
 
             games.Add(g);
             games.Add(g2);
