@@ -13,10 +13,10 @@ namespace VideoGameCompendium.Models
         public string Description;
         public List<string> Platforms;
         public List<string> Genres;
-        public string[] ESRB;
+        public string ESRB;
         public DateTime ReleaseDate;
 
-        public Game(int id, string title, string description, DateTime releaseDate)
+        public Game(int id, string title, string description, DateTime releaseDate, string image)
         {
             Id = id;
             Title = title;
@@ -24,6 +24,7 @@ namespace VideoGameCompendium.Models
             ReleaseDate = releaseDate;
             Platforms = new List<string>();
             Genres = new List<string>();
+            Image = image;
         }
 
     }
