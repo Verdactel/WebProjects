@@ -36,6 +36,8 @@ namespace VideoGameCompendium.Data
             Genres = db.GetCollection<BsonDocument>("Genres");
             Platforms = db.GetCollection<BsonDocument>("Platforms");
             Users = db.GetCollection<BsonDocument>("Users");
+            CollectionConnectors = db.GetCollection<BsonDocument>("CollectionConnectors");
+            FavoritesConnector = db.GetCollection<BsonDocument>("FavoritesConnector");
 
             Console.WriteLine("Mongo Connection Success!");
         }
@@ -166,7 +168,22 @@ namespace VideoGameCompendium.Data
 
         public List<Game> GetCollection(string userId)
         {
-            return null;
+            List<Game> toReturn = new List<Game>();
+
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["userId"] = new BsonString(userId);
+
+                var result = CollectionConnectors.Find(queryDoc);
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return toReturn;
         }
 
         public List<Game> GetFavorites(string id)
@@ -176,8 +193,6 @@ namespace VideoGameCompendium.Data
 
         public List<Game> BrowseGames(string search, string platform, string genre, string maxEsrb)
         {
-
-
             return null;
         }
 
@@ -240,22 +255,74 @@ namespace VideoGameCompendium.Data
 
         public bool AddToCollection(string userId, string gameId)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("gameId", new BsonString(gameId));
+                doc.Add("userId", new BsonString(userId));
+                CollectionConnectors.InsertOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
         }
 
         public bool RemoveFromCollection(string userId, string gameId)
         {
-            return false;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["gameId"] = new BsonString(gameId);
+                queryDoc["userId"] = new BsonString(userId);
+
+                CollectionConnectors.DeleteOne(queryDoc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
         public bool AddToFavorites(string userId, string gameId)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("gameId", new BsonString(gameId));
+                doc.Add("userId", new BsonString(userId));
+                FavoritesConnector.InsertOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
         }
 
         public bool RemoveFromFavorites(string userId, string gameId)
         {
-            return false;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["gameId"] = new BsonString(gameId);
+                queryDoc["userId"] = new BsonString(userId);
+
+                FavoritesConnector.DeleteOne(queryDoc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
         public static DateTime UnixTimeStampToDateTime(Int32 unixTimeStamp)
