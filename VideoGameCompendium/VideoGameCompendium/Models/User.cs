@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VideoGameCompendium.Data;
 
 namespace VideoGameCompendium.Models
 {
@@ -23,6 +24,7 @@ namespace VideoGameCompendium.Models
             Bio = bio;
             Image = image;
             IsAdmin = isAdmin;
+            
         }
     }
 }

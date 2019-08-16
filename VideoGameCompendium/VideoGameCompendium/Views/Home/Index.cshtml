@@ -1,4 +1,5 @@
-﻿
+﻿@using VideoGameCompendium.Models;
+@model List<Game>
 
 @section Title
 {
@@ -10,6 +11,14 @@
 
 <div class="indexContent">
     <h1 class="indexTitle">Welcome!</h1>
+    <div class="gameDisplay">
+        @foreach(Game game in Model)
+        {
+            <div class="GameCard">
+                <partial name="_DisplayGamesHomePartial" model="game" />
+            </div>
+        }
+    </div>
     @if(User.Identity.Name == null)
     {
 
@@ -19,4 +28,5 @@
         <span>Hello @User.Identity.Name</span> 
         <a asp-action="Logout" asp-controller="Account">Logout</a>
     }
+
 </div>
