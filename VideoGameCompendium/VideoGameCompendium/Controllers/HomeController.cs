@@ -15,9 +15,17 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            Game g = db.GetGameByID(11659);
+            List<Game> games = new List<Game>();
 
-            return View();
+            Game g = db.GetGameByID(1817);
+            Game g2 = db.GetGameByID(1820);
+            Game g3 = db.GetGameByID(1818);
+
+            games.Add(g);
+            games.Add(g2);
+            games.Add(g3);
+            //return View(games)
+            return View(games);
         }
 
         [Authorize]
@@ -32,6 +40,12 @@ namespace VideoGameCompendium.Controllers
 
             //return user collection as list
             //return View(collection);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Collection(int userID)
+        {
             return View();
         }
     }
