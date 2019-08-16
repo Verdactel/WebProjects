@@ -196,14 +196,12 @@ namespace VideoGameCompendium.Data
             List<Game> result;
             try
             {
-                var query =
-                    from doc in Games.AsQueryable<BsonDocument>()
-                    where doc["name"].AsString.Contains("a")
-                    select doc;
+                var doc = Games.Find(new BsonDocument()).ToList();
+                var ids = doc.Where(x => x["name"].AsString.Contains(search)).Select(x => x["id"].AsInt32).ToList();
 
                 result = new List<Game>();
-                var ids = query.ToList();
-               // ids.ForEach(x => result.Add(GetGameByID(x)));
+                ids.ForEach(x => result.Add(GetGameByID(x)));
+                return result;
             }
             catch (Exception e)
             {

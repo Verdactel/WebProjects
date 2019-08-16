@@ -15,7 +15,6 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            //var g = db.BrowseGames();
             //db.AddToCollection("UserIDTest1", "GameIDTest1");
             //db.AddToCollection("Bill", "Uncharted");
             //db.AddToCollection("Bill", "Battlefield");
@@ -33,13 +32,15 @@ namespace VideoGameCompendium.Controllers
 
             Game g = db.GetGameByID(4423);
             Game g2 = db.GetGameByID(12862);
-            Game g3 = db.GetGameByID(6033);
+            Game g3 = db.GetGameByID(96155);
 
             games.Add(g);
             games.Add(g2);
             games.Add(g3);
 
-            return View(games);
+            var v = db.BrowseGames("Desert");
+
+            return View(v);
         }
 
         [Authorize]
