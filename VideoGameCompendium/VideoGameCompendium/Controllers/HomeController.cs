@@ -31,12 +31,12 @@ namespace VideoGameCompendium.Controllers
             //db.RemoveFromFavorites("UserIDTest1", "GameIDTest1");
             List<Game> games = new List<Game>();
 
-            Game g = db.GetGameByID(59449);
-            Game g2 = db.GetGameByID(12398);
-            Game g3 = db.GetGameByID(96155);
+            Game g = db.GetGameByID(1819);
+            Game g2 = db.GetGameByID(49939);
+            Game g3 = db.GetGameByID(35700);
 
             games.Add(g);
-            games.Add(g2);
+            //games.Add(g2);
             games.Add(g3);
 
             return View(games);
