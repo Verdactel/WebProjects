@@ -38,11 +38,26 @@ body {
 }
 
 .main-container {
-    min-height: 100vh; /* will cover the 100% of viewport */
-    overflow: hidden;
-    display: block;
-    position: relative;
+    /*min-height: 100vh;*/ /* will cover the 100% of viewport */
+    margin-bottom: -30px;
     padding-bottom: 50px; /* needs to be the height of the footer */
+    flex: 1 0 auto;
+    /*overflow: hidden;*/
+    /*display: block;
+    position: relative;*/
+}
+
+footer {
+    background-color: #171717;
+    color: #E02176;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 10px;
+    flex-shrink: 0;
+    /*position: absolute;
+    bottom: 0;*/
 }
 
 header {
@@ -52,17 +67,6 @@ header {
     padding: 10px 0px 0px 0px;
 }
 
-footer {
-    background-color: #171717;
-    color: #E02176;
-    position: absolute;
-    height: 30px;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    padding-top: 10px;
-}
 
 /*Base Navigation Button Styling*/
 .NavButtons{
