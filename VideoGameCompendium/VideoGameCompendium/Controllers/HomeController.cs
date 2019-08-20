@@ -15,9 +15,20 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            var v = db.BrowseGames("Desert");
+            return View();
+        }
 
-            return View(v);
+        [HttpGet]
+        public IActionResult Browse()
+        {
+            var g = db.GetGameByID(1817);
+            var g2 = db.GetGameByID(1818);
+
+            List<Game> games = new List<Game>();
+            games.Add(g);
+            games.Add(g2);
+
+            return View(games);
         }
 
         [Authorize]
@@ -25,10 +36,10 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-            User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
+            //User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
 
             //query user collection
-            List<Game> collection = db.GetCollection(user.ID);
+            //List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
             //return View(collection);
