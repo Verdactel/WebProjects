@@ -227,17 +227,43 @@ namespace VideoGameCompendium.Data
 
         }
 
-        //Needs Finishing
-        public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", string maxEsrb = "")
+        //Passed
+        public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", int maxEsrb = 12)
         {
             List<Game> result;
             try
             {
-                var doc = Games.Find(new BsonDocument()).ToList();
-                var ids = doc.Where(x => x["name"].AsString.Contains(search)).Select(x => x["id"].AsInt32).ToList();
+                var allGames = Games.Find(new BsonDocument()).ToList();
+                allGames = allGames.Where(x => x["name"].AsString.Contains(search)).ToList();
 
+                if (!string.IsNullOrEmpty(platform))
+                {
+                    var p = Platforms.Find(new BsonDocument()).ToList();
+                    p = p.Where(x => x["name"].AsString == platform || (x.TryGetValue("abbreviation", out var dummy) && x["abbreviation"].AsString == platform)).ToList();
+                    Int32 index = p.Select(x => x["id"].AsInt32).FirstOrDefault();
+                    BsonInt32 bint = new BsonInt32(index);
+
+                    allGames = allGames.Where(x => x["platforms"].AsBsonArray.Contains(bint)).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(genre))
+                {
+                    var p = Genres.Find(new BsonDocument()).ToList();
+                    p = p.Where(x => x["name"].AsString.Contains(genre)).ToList();
+                    Int32 index = p.Select(x => x["id"].AsInt32).FirstOrDefault();
+                    BsonInt32 bint = new BsonInt32(index);
+
+                    allGames = allGames.Where(x => x["genres"].AsBsonArray.Contains(bint)).ToList();
+                }
+
+                var ids = allGames.Select(x => x["id"].AsInt32).ToList();
                 result = new List<Game>();
                 ids.ForEach(x => result.Add(GetGameByID(x)));
+
+                result = result.Where(x => x.ESRBNumeric <= maxEsrb).ToList();
+                if (maxEsrb < 12)
+                    result = result.Where(x => x.ESRBNumeric != 6 && x.ESRBNumeric != 0).ToList();
+
                 return result;
             }
             catch (Exception e)
