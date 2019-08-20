@@ -19,15 +19,9 @@
             }
         }
     </div>
-    @if (User.Identity.Name == null)
-    {
-        <a href="~/Account/SignUp">Sign Up</a>
-        <a href="~/Account/Login">Login</a>
-    }
-    else
+    @if (User.Identity.Name != null)
     {
         <span>Hello @User.Identity.Name</span>
-        <a asp-action="Logout" asp-controller="Account">Logout</a>
     }
 
 </div>

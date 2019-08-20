@@ -35,9 +35,16 @@ namespace VideoGameCompendium.Controllers
             return View();
         }
         
+        [HttpGet]
         public IActionResult Browse()
         {
             return View(db.BrowseGames());
+        }
+
+        [HttpPost]
+        public IActionResult Browse(string search)
+        {
+            return View(db.BrowseGames(search)); //return search
         }
 
         [Authorize]
