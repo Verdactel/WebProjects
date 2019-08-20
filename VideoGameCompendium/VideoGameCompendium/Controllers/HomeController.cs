@@ -15,7 +15,7 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            var v = db.BrowseGames("Desert");
+            var v = db.BrowseGames("", "PC", "RPG", 12);
 
             return View(v);
         }
