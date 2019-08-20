@@ -15,13 +15,36 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            var g = db.GetGameByID(1817);
-            var g2 = db.GetGameByID(1820);
-            List<Game> games = new List<Game>();
-            games.Add(g);
-            games.Add(g2);
+            //User iaro = new User("Iaro", "pass", "cool", "hui", true);
+            //User garrett = new User("Garrett", "pass", "meh", "hui", false);
+            //User gage = new User("Gage", "pass", "meh", "hui", false);
+            //db.InsertUser(ref iaro);
+            //db.InsertUser(ref garrett);
+            //db.InsertUser(ref gage);
+            //
+            //db.AddFollower(garrett.ID, iaro.ID);
+            //db.AddFollower(gage.ID, iaro.ID);
+            //int num = db.GetFollowersNum(iaro.ID);
+            //int num2 = db.GetFollowersNum(garrett.ID);
+            //var v = db.GetFollowers(iaro.ID);
+            //var v3 = db.GetFollowers(garrett.ID);
+            //var v1 = db.IsFollowing(garrett.ID, iaro.ID);
+            //var v2 = db.IsFollowing(iaro.ID, garrett.ID);
+            //db.Unfollow(garrett.ID, iaro.ID);
 
-            return View(games);
+            return View();
+        }
+        
+        [HttpGet]
+        public IActionResult Browse()
+        {
+            return View(db.BrowseGames());
+        }
+
+        [HttpPost]
+        public IActionResult Browse(string search)
+        {
+            return View(db.BrowseGames(search)); //return search
         }
 
         [Authorize]
@@ -29,10 +52,10 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-            User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
+            //User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
 
             //query user collection
-            List<Game> collection = db.GetCollection(user.ID);
+            //List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
             //return View(collection);
