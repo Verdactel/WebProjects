@@ -16,7 +16,20 @@
             <a class="NavButtons" asp-action="Index" asp-controller="Home">Home</a>
             <a class="NavButtons" asp-action="Browse" asp-controller="Home">Browse</a>
             <a class="NavButtons" asp-action="Collection" asp-controller="Home">Collection</a>
+            @if (User.Identity.Name == null)
+            {
+                <a class="Login" asp-action="Login" asp-controller="Account">Login</a>
+                <a class="Signup" asp-action="Signup" asp-controller="Account">Sign Up</a>
+            }
+            else
+            {
+                <a class="Logout" asp-action="Logout" asp-controller="Account">Logout</a>
+            }
         </header>
+        <form action="~/Home/Browse" method="post">
+            Search <input type="text" name="Search" />
+            <input type="submit" name="submit" value="Search!" />
+        </form>
         <footer>
             The Collectors &copy; @DateTime.Now.Year
         </footer>
