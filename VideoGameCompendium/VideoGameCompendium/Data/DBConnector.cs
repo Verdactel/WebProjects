@@ -18,6 +18,8 @@ namespace VideoGameCompendium.Data
         static IMongoCollection<BsonDocument> Users;
         static IMongoCollection<BsonDocument> CollectionConnectors;
         static IMongoCollection<BsonDocument> FavoritesConnector;
+        static IMongoCollection<BsonDocument> Ratings;
+        static IMongoCollection<BsonDocument> Followers;
 
 
         public DBConnector()
@@ -39,6 +41,8 @@ namespace VideoGameCompendium.Data
             Users = db.GetCollection<BsonDocument>("Users");
             CollectionConnectors = db.GetCollection<BsonDocument>("CollectionConnectors");
             FavoritesConnector = db.GetCollection<BsonDocument>("FavoritesConnector");
+            Ratings = db.GetCollection<BsonDocument>("Ratings");
+            Followers = db.GetCollection<BsonDocument>("Followers");
 
             Console.WriteLine("Mongo Connection Success!");
         }
@@ -457,24 +461,162 @@ namespace VideoGameCompendium.Data
             return false;
         }
 
-        public bool AddFollower(string followerID, string leaderId)
+        public bool AddFollower(string followerId, string leaderId)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("followerId", followerId);
+                doc.Add("leaderId", leaderId);
+                Followers.InsertOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
-        public bool Unfollow(string followerID, string leaderId)
+        public bool Unfollow(string followerId, string leaderId)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("followerId", followerId);
+                doc.Add("leaderId", leaderId);
+                Followers.DeleteOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
+        public bool IsFollowing(string followerId, string leaderId)
+        {
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("followerId", followerId);
+                doc.Add("leaderId", leaderId);
+                return Followers.Find(doc).ToList().Count() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public int GetFollowersNum(string leaderId)
+        {
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("leaderId", leaderId);
+                var f = Followers.Find(doc).ToList();
+                return f.Count;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return -1;
+            }
+        }
+
+        public List<User> GetFollowers(string leaderId)
+        {
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("leaderId", leaderId);
+                var f = Followers.Find(doc).ToList().Select(x => x["followerId"].AsString).ToList();
+
+                List<User> followers = new List<User>();
+                f.ForEach(x => followers.Add(GetUserByID(x)));
+
+                return followers;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        //Passed
         public bool RateGame(int gameId, string userId, int rating)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("gameId", gameId);
+                doc.Add("userId", userId);
+                doc.Add("rating", rating);
+                Ratings.InsertOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
+        //Passed
+        public float GetAverageRating(int gameId)
+        {
+            float result = 0.0f;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc.Add("gameId", gameId);
+
+                var ratings = Ratings.Find(queryDoc).ToList();
+
+                foreach (var rating in ratings)
+                {
+                    result += rating["rating"].AsInt32;
+                }
+                result /= ratings.Count;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
+        }
+
+        //Passed
         public bool EditRating(int gameId, string userId, int rating)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("gameId", gameId);
+                doc.Add("userId", userId);
+                doc.Add("rating", rating);
+
+                var queryDoc = new BsonDocument();
+                queryDoc.Add("gameId", gameId);
+                queryDoc.Add("userId", userId);
+
+                Ratings.ReplaceOne(queryDoc, doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
         //Helper
