@@ -25,6 +25,7 @@ namespace VideoGameCompendium.Data
             ConnectToMongo();
         }
 
+        //Helper
         static void ConnectToMongo()
         {
             var connectionString = "mongodb://localhost:27017";
@@ -120,6 +121,7 @@ namespace VideoGameCompendium.Data
             return user;
         }
 
+        //Passed
         public bool CheckForUsername(string username)
         {
             try
@@ -166,6 +168,7 @@ namespace VideoGameCompendium.Data
             }
         }
 
+        //Passed
         public List<Game> GetCollection(string userId)
         {
             List<Game> toReturn = new List<Game>();
@@ -194,6 +197,7 @@ namespace VideoGameCompendium.Data
             return toReturn;
         }
 
+        //Passed
         public List<Game> GetFavorites(string userId)
         {
             List<Game> toReturn = new List<Game>();
@@ -223,6 +227,7 @@ namespace VideoGameCompendium.Data
 
         }
 
+        //Needs Finishing
         public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", string maxEsrb = "")
         {
             List<Game> result;
@@ -244,6 +249,7 @@ namespace VideoGameCompendium.Data
             return result;
         }
 
+        //Passed
         public Game GetGameByID(Int32 id)
         {
             Game game;
@@ -298,6 +304,7 @@ namespace VideoGameCompendium.Data
             return game;
         }
 
+        //Passed
         public string GetGenreByID(Int32 id)
         {
             try
@@ -314,6 +321,7 @@ namespace VideoGameCompendium.Data
             }
         }
 
+        //Passed
         public string GetPlatformByID(Int32 id, bool preferShort)
         {
             try
@@ -332,6 +340,7 @@ namespace VideoGameCompendium.Data
             }
         }
 
+        //Passed
         public bool AddToCollection(string userId, string gameId)
         {
             try
@@ -349,6 +358,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        //Passed
         public bool RemoveFromCollection(string userId, string gameId)
         {
             try
@@ -368,6 +378,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        //Passed
         public bool AddToFavorites(string userId, string gameId)
         {
             try
@@ -385,6 +396,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        //Passed
         public bool RemoveFromFavorites(string userId, string gameId)
         {
             try
@@ -404,6 +416,42 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        public bool AddComment(string text, string senderId, bool userPage, string receiverId)
+        {
+            return false;
+        }
+
+        public bool RemoveComment(string senderId, bool userPage, string receiverId)
+        {
+            return false;
+        }
+
+        public bool EditComment(string text, string senderId, bool userPage, string receiverId)
+        {
+            return false;
+        }
+
+        public bool AddFollower(string followerID, string leaderId)
+        {
+            return false;
+        }
+
+        public bool Unfollow(string followerID, string leaderId)
+        {
+            return false;
+        }
+
+        public bool RateGame(int gameId, string userId, int rating)
+        {
+            return false;
+        }
+
+        public bool EditRating(int gameId, string userId, int rating)
+        {
+            return false;
+        }
+
+        //Helper
         public static DateTime UnixTimeStampToDateTime(Int32 unixTimeStamp)
         {
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
