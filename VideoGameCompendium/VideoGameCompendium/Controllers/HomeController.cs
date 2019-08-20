@@ -17,18 +17,10 @@ namespace VideoGameCompendium.Controllers
         {
             return View();
         }
-
-        [HttpGet]
+        
         public IActionResult Browse()
         {
-            var g = db.GetGameByID(1817);
-            var g2 = db.GetGameByID(1818);
-
-            List<Game> games = new List<Game>();
-            games.Add(g);
-            games.Add(g2);
-
-            return View(games);
+            return View(db.BrowseGames());
         }
 
         [Authorize]
