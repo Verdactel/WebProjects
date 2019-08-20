@@ -2,30 +2,31 @@
 @model List<Game>
 
 @section Title
-{
+    {
     Home
 }
-
-<a href="~/Account/SignUp">Sign Up</a>
-<a href="~/Account/Login">Login</a>
 
 <div class="indexContent">
     <h1 class="indexTitle">Welcome!</h1>
     <div class="gameDisplay">
-        @foreach(Game game in Model)
+        @if (Model != null)
         {
-            <div class="GameCard">
-                <partial name="_DisplayGamesHomePartial" model="game" />
-            </div>
+            @foreach (Game game in Model)
+            {
+                <div class="GameCard">
+                    <partial name="_DisplayGamesHomePartial" model="game" />
+                </div>
+            }
         }
     </div>
-    @if(User.Identity.Name == null)
+    @if (User.Identity.Name == null)
     {
-
+        <a href="~/Account/SignUp">Sign Up</a>
+        <a href="~/Account/Login">Login</a>
     }
     else
     {
-        <span>Hello @User.Identity.Name</span> 
+        <span>Hello @User.Identity.Name</span>
         <a asp-action="Logout" asp-controller="Account">Logout</a>
     }
 
