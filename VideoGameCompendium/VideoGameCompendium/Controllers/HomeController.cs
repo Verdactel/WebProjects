@@ -34,7 +34,7 @@ namespace VideoGameCompendium.Controllers
 
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult Browse()
         {
@@ -44,7 +44,12 @@ namespace VideoGameCompendium.Controllers
         [HttpPost]
         public IActionResult Browse(string search)
         {
-            return View(db.BrowseGames(search)); //return search
+            if (search != null)
+            {
+                return View(db.BrowseGames(search));
+            }
+
+            return View(db.BrowseGames());
         }
 
         [Authorize]

@@ -4,16 +4,6 @@
 @section Title{
     Video Game Collection
 }
-
-@section AddToHead{
-    <link href="@Url.Content("~/Styles/CollectionStyle.css")" rel="stylesheet" />
-}
-
-<div class="buttonToggle">
-    <button class="listBtn" onclick="ListDisplay()">List</button>
-    <button class="gridBtn" onclick="GridDisplay()">Grid</button>
-</div>
-
 <div class="DisplayContainer">
     <div class="List" id="display">
         <partial name="_DisplayCollectionPartial"/>
@@ -26,13 +16,3 @@
     </div>
 </div>
 
-<script>
-    var element = document.getElementById("display");
-    function ListDisplay() {
-        element.className = "List";
-    }
-
-    function GridDisplay() {
-        element.className = "Grid";
-    }
-</script>

@@ -2,9 +2,18 @@
 @model List<Game>
 
 
-@section Title{ 
+@section Title{
     Browse Games
 }
+
+@section AddToHead{
+    <link href="@Url.Content("~/Styles/CollectionStyle.css")" rel="stylesheet" />
+}
+
+@*<div class="buttonToggle">
+    <button class="listBtn" onclick="ListDisplay()">List</button>
+    <button class="gridBtn" onclick="GridDisplay()">Grid</button>
+</div>*@
 
 <div class="gameDisplay">
     @if (Model != null)
@@ -17,3 +26,15 @@
         }
     }
 </div>
+
+
+@*<script>
+    var element = document.getElementById("display");
+    function ListDisplay() {
+        element.className = "List";
+    }
+
+    function GridDisplay() {
+        element.className = "Grid";
+    }
+</script>*@
