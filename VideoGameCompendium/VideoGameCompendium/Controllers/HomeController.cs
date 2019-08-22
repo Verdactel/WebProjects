@@ -89,7 +89,7 @@ namespace VideoGameCompendium.Controllers
             user.Bio = bio;
             db.EditUser(id, user);
 
-            Response.Cookies.Delete(id);
+            Response.Cookies.Delete("userID");
 
             return RedirectToAction("UserAccount", "Home");
         }

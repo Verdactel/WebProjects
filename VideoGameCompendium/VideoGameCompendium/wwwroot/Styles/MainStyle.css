@@ -134,9 +134,9 @@ header {
 	font-family: FontAwesome;
 }
 
-	.stars-outer::before {
-		content: "\f005 \f005 \f005 \f005 \f005";
-	}
+.stars-outer::before {
+	content: "\f005 \f005 \f005 \f005 \f005";
+}
 
 .stars-inner {
 	position: absolute;
@@ -171,7 +171,11 @@ header {
 	display:none;
 }
 
-.ProfileContainer{
+.inlinBlock{
+    display: inline-block;
+}
+
+.ProfileContainer {
     border: solid 2px black;
     margin-top: 5%;
     margin-left: 2%;
@@ -191,5 +195,34 @@ header {
 }
 
 .profileComments {
+    border: solid 1px white;
+}
+
+.gamePageImageDescriptionContainer {
+    border: solid 2px black;
+}
+
+.gamePageImg {
+    border: solid 1px white;
+}
+
+.gamePageDescription {
+    border: solid 1px white;
+}
+
+/*.gamePageRatingContainer {
+    border: solid 2px black;
+}
+
+.gamePageRating {
+    max-width:0px;
+    border: solid 1px white;
+}*/
+
+.gamePageCommentsContainer {
+    border: solid 2px black;
+}
+
+.gamePageComments {
     border: solid 1px white;
 }
