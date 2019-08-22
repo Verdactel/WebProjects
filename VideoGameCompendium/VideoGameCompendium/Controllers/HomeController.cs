@@ -15,26 +15,13 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            //User iaro = new User("Iaro", "pass", "cool", "hui", true);
-            //User garrett = new User("Garrett", "pass", "meh", "hui", false);
-            //User gage = new User("Gage", "pass", "meh", "hui", false);
-            //db.InsertUser(ref iaro);
-            //db.InsertUser(ref garrett);
-            //db.InsertUser(ref gage);
-            //
-            //db.AddFollower(garrett.ID, iaro.ID);
-            //db.AddFollower(gage.ID, iaro.ID);
-            //int num = db.GetFollowersNum(iaro.ID);
-            //int num2 = db.GetFollowersNum(garrett.ID);
-            //var v = db.GetFollowers(iaro.ID);
-            //var v3 = db.GetFollowers(garrett.ID);
-            //var v1 = db.IsFollowing(garrett.ID, iaro.ID);
-            //var v2 = db.IsFollowing(iaro.ID, garrett.ID);
-            //db.Unfollow(garrett.ID, iaro.ID);
+            Comment comment = new Comment("Niiiiiiice", "Stan", "123");
+            comment.Id = "5d5b54ae9268f82ff822c961";
+            bool success = db.EditComment(comment);
 
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult Browse()
         {
@@ -44,7 +31,12 @@ namespace VideoGameCompendium.Controllers
         [HttpPost]
         public IActionResult Browse(string search)
         {
-            return View(db.BrowseGames(search)); //return search
+            if (search != null)
+            {
+                return View(db.BrowseGames(search));
+            }
+
+            return View(db.BrowseGames());
         }
 
         [Authorize]
