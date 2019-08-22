@@ -17,6 +17,13 @@ namespace VideoGameCompendium.Controllers
         {
             var v = db.BrowseGames("Desert");
 
+            // -- Garrett Test Section -- //
+            //bool success = db.RemoveComment("5d5b545607e4373938d0ee63");
+            //bool success = db.AddComment("Nice", "123", "Stan");
+            Comment comment = new Comment("Niiiiiiice", "Stan", "123");
+            comment.Id = "5d5b54ae9268f82ff822c961";
+            bool success = db.EditComment(comment);
+
             return View(v);
         }
 

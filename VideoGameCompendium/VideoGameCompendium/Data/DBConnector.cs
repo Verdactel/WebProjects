@@ -18,6 +18,7 @@ namespace VideoGameCompendium.Data
         static IMongoCollection<BsonDocument> Users;
         static IMongoCollection<BsonDocument> CollectionConnectors;
         static IMongoCollection<BsonDocument> FavoritesConnector;
+        static IMongoCollection<BsonDocument> Comments;
 
 
         public DBConnector()
@@ -39,6 +40,7 @@ namespace VideoGameCompendium.Data
             Users = db.GetCollection<BsonDocument>("Users");
             CollectionConnectors = db.GetCollection<BsonDocument>("CollectionConnectors");
             FavoritesConnector = db.GetCollection<BsonDocument>("FavoritesConnector");
+            Comments = db.GetCollection<BsonDocument>("Comments");
 
             Console.WriteLine("Mongo Connection Success!");
         }
@@ -416,39 +418,105 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
-        public bool AddComment(string text, string senderId, bool userPage, string receiverId)
+        //Passed
+        /// <summary>
+        /// Adds a comment to a game post or a user post
+        /// </summary>
+        /// <param name="text">Text to as the comment</param>
+        /// <param name="pageId">The Id of the page reciveing the comment. Can be a number for a game ID or a uNumber for a user Id</param>
+        /// <param name="userId">The Id of the user who posted the comment</param>
+        /// <returns></returns>
+        public bool AddComment(string text, string pageId, string userId)
         {
-            return false;
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("userId", new BsonString(userId));
+                doc.Add("text", new BsonString(text));
+                doc.Add("pageId", new BsonString(pageId));
+                Comments.InsertOne(doc);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return true;
         }
 
-        public bool RemoveComment(string senderId, bool userPage, string receiverId)
+        // Passed
+        public bool RemoveComment(string commentId)
         {
-            return false;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["_id"] = ObjectId.Parse(commentId);
+                Comments.DeleteOne(queryDoc);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            return true;
         }
 
-        public bool EditComment(string text, string senderId, bool userPage, string receiverId)
+        public bool GetComments(string commentId)
         {
-            return false;
+            // Store _id in Id in Comment object
+            return true;
+        }
+
+
+        public bool EditComment(Comment comment)
+        {
+            try
+            {
+                //var queryDoc = new BsonDocument();
+                //queryDoc["commentId"] = ObjectId.Parse(commentId);
+                //var doc = Comments.Find(queryDoc).ToList().First();
+                //doc["text"] = text;
+
+                BsonDocument doc = comment.ToBsonDocument();
+                doc.Remove("Id");
+                var queryDoc = new BsonDocument();
+                queryDoc["_Id"] = ObjectId.Parse(comment.Id);
+                Comments.ReplaceOne(queryDoc, doc);
+
+                //BsonDocument doc = user.ToBsonDocument();
+                //doc.Remove("ID");
+                //var queryDoc = new BsonDocument();
+                //queryDoc["_id"] = ObjectId.Parse(id);
+                //Users.ReplaceOne(queryDoc, doc);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return true;
         }
 
         public bool AddFollower(string followerID, string leaderId)
         {
-            return false;
+
+            return true;
         }
 
         public bool Unfollow(string followerID, string leaderId)
         {
-            return false;
+
+            return true;
         }
 
         public bool RateGame(int gameId, string userId, int rating)
         {
-            return false;
+
+            return true;
         }
 
         public bool EditRating(int gameId, string userId, int rating)
         {
-            return false;
+
+            return true;
         }
 
         //Helper
