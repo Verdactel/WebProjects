@@ -41,30 +41,27 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-            //User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
+            User user = db.GetUserByID(Request.Cookies["userID"]);
 
             //query user collection
-            //List<Game> collection = db.GetCollection(user.ID);
+            List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
-            //return View(collection);
+            if(collection != null)
+            {
+                return View(collection);
+            }
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult Game(int id)
-        //{
-        //    Game game = db.GetGameByID(id);
-
-        //    if (game != null)
-        //        return View(game);
-        //    else
-        //        return RedirectToAction("Index");
-        //}
-
         [HttpPost]
-        public IActionResult Collection(int userID)
+        public IActionResult Collection(string userID)
         {
+            List<Game> collection = db.GetCollection(userID);
+            if(collection != null)
+            {
+                return View(collection);
+            }
             return View();
         }
 
