@@ -240,7 +240,7 @@ namespace VideoGameCompendium.Data
             try
             {
                 var allGames = Games.Find(new BsonDocument()).ToList();
-                allGames = allGames.Where(x => x["name"].AsString.Contains(search)).ToList();
+                allGames = allGames.Where(x => x["name"].AsString.ToLower().Contains(search.ToLower())).ToList();
 
                 if (!string.IsNullOrEmpty(platform))
                 {
@@ -540,6 +540,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        //Passed
         public bool AddFollower(string followerId, string leaderId)
         {
             try
@@ -558,6 +559,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        //Passed
         public bool Unfollow(string followerId, string leaderId)
         {
             
@@ -577,6 +579,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
+        //Passed
         public bool IsFollowing(string followerId, string leaderId)
         {
             try
@@ -593,6 +596,7 @@ namespace VideoGameCompendium.Data
             }
         }
 
+        //Passed
         public int GetFollowersNum(string leaderId)
         {
             try
@@ -609,6 +613,7 @@ namespace VideoGameCompendium.Data
             }
         }
 
+        //Passed
         public List<User> GetFollowers(string leaderId)
         {
             try

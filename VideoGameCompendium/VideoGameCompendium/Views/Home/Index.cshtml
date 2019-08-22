@@ -7,8 +7,9 @@
 }
 
 <div class="indexContent">
+    <a asp-action="UserProfile" asp-controller="Home">Profile</a>
     <h1 class="indexTitle">Welcome!</h1>
-    <div class="gameDisplay">
+    @*<div class="gameDisplay">
         @if (Model != null)
         {
             @foreach (Game game in Model)
@@ -18,7 +19,7 @@
                 </div>
             }
         }
-    </div>
+    </div>*@
     @if (User.Identity.Name != null)
     {
         <span>Hello @User.Identity.Name</span>

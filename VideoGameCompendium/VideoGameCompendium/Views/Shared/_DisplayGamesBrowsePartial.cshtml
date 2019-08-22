@@ -1,0 +1,11 @@
+﻿@using VideoGameCompendium.Models;
+@model Game
+
+<div class="gameDisplay">
+    <a href="~/Home/Game?index=@Model.Id">
+        <img src="@Model.Image">
+    </a>
+    <a href="~/Home/Game?index=@Model.Id">
+        <p>@Model.Title</p>
+    </a>
+</div>
