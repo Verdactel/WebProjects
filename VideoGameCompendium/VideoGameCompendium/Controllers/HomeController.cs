@@ -54,6 +54,17 @@ namespace VideoGameCompendium.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public IActionResult Game(int id)
+        //{
+        //    Game game = db.GetGameByID(id);
+
+        //    if (game != null)
+        //        return View(game);
+        //    else
+        //        return RedirectToAction("Index");
+        //}
+
         [HttpPost]
         public IActionResult Collection(int userID)
         {
