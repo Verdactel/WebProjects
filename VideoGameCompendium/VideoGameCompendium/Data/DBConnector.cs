@@ -18,7 +18,12 @@ namespace VideoGameCompendium.Data
         static IMongoCollection<BsonDocument> Users;
         static IMongoCollection<BsonDocument> CollectionConnectors;
         static IMongoCollection<BsonDocument> FavoritesConnector;
+<<<<<<< HEAD
         static IMongoCollection<BsonDocument> Comments;
+=======
+        static IMongoCollection<BsonDocument> Ratings;
+        static IMongoCollection<BsonDocument> Followers;
+>>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
 
         public DBConnector()
@@ -40,7 +45,12 @@ namespace VideoGameCompendium.Data
             Users = db.GetCollection<BsonDocument>("Users");
             CollectionConnectors = db.GetCollection<BsonDocument>("CollectionConnectors");
             FavoritesConnector = db.GetCollection<BsonDocument>("FavoritesConnector");
+<<<<<<< HEAD
             Comments = db.GetCollection<BsonDocument>("Comments");
+=======
+            Ratings = db.GetCollection<BsonDocument>("Ratings");
+            Followers = db.GetCollection<BsonDocument>("Followers");
+>>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             Console.WriteLine("Mongo Connection Success!");
         }
@@ -229,17 +239,43 @@ namespace VideoGameCompendium.Data
 
         }
 
-        //Needs Finishing
-        public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", string maxEsrb = "")
+        //Passed
+        public List<Game> BrowseGames(string search = "", string platform = "", string genre = "", int maxEsrb = 12)
         {
             List<Game> result;
             try
             {
-                var doc = Games.Find(new BsonDocument()).ToList();
-                var ids = doc.Where(x => x["name"].AsString.Contains(search)).Select(x => x["id"].AsInt32).ToList();
+                var allGames = Games.Find(new BsonDocument()).ToList();
+                allGames = allGames.Where(x => x["name"].AsString.Contains(search)).ToList();
 
+                if (!string.IsNullOrEmpty(platform))
+                {
+                    var p = Platforms.Find(new BsonDocument()).ToList();
+                    p = p.Where(x => x["name"].AsString == platform || (x.TryGetValue("abbreviation", out var dummy) && x["abbreviation"].AsString == platform)).ToList();
+                    Int32 index = p.Select(x => x["id"].AsInt32).FirstOrDefault();
+                    BsonInt32 bint = new BsonInt32(index);
+
+                    allGames = allGames.Where(x => x["platforms"].AsBsonArray.Contains(bint)).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(genre))
+                {
+                    var p = Genres.Find(new BsonDocument()).ToList();
+                    p = p.Where(x => x["name"].AsString.Contains(genre)).ToList();
+                    Int32 index = p.Select(x => x["id"].AsInt32).FirstOrDefault();
+                    BsonInt32 bint = new BsonInt32(index);
+
+                    allGames = allGames.Where(x => x["genres"].AsBsonArray.Contains(bint)).ToList();
+                }
+
+                var ids = allGames.Select(x => x["id"].AsInt32).ToList();
                 result = new List<Game>();
                 ids.ForEach(x => result.Add(GetGameByID(x)));
+
+                result = result.Where(x => x.ESRBNumeric <= maxEsrb).ToList();
+                if (maxEsrb < 12)
+                    result = result.Where(x => x.ESRBNumeric != 6 && x.ESRBNumeric != 0).ToList();
+
                 return result;
             }
             catch (Exception e)
@@ -495,26 +531,174 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
-        public bool AddFollower(string followerID, string leaderId)
+        public bool AddFollower(string followerId, string leaderId)
         {
+<<<<<<< HEAD
+=======
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("followerId", followerId);
+                doc.Add("leaderId", leaderId);
+                Followers.InsertOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+>>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             return true;
         }
 
-        public bool Unfollow(string followerID, string leaderId)
+        public bool Unfollow(string followerId, string leaderId)
         {
+<<<<<<< HEAD
+
+            return true;
+=======
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("followerId", followerId);
+                doc.Add("leaderId", leaderId);
+                Followers.DeleteOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
 
             return true;
         }
 
+        public bool IsFollowing(string followerId, string leaderId)
+        {
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("followerId", followerId);
+                doc.Add("leaderId", leaderId);
+                return Followers.Find(doc).ToList().Count() > 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public int GetFollowersNum(string leaderId)
+        {
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("leaderId", leaderId);
+                var f = Followers.Find(doc).ToList();
+                return f.Count;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return -1;
+            }
+        }
+
+        public List<User> GetFollowers(string leaderId)
+        {
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("leaderId", leaderId);
+                var f = Followers.Find(doc).ToList().Select(x => x["followerId"].AsString).ToList();
+
+                List<User> followers = new List<User>();
+                f.ForEach(x => followers.Add(GetUserByID(x)));
+
+                return followers;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+>>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
+        }
+
+        //Passed
         public bool RateGame(int gameId, string userId, int rating)
         {
+<<<<<<< HEAD
+=======
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("gameId", gameId);
+                doc.Add("userId", userId);
+                doc.Add("rating", rating);
+                Ratings.InsertOne(doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+>>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             return true;
         }
 
+        //Passed
+        public float GetAverageRating(int gameId)
+        {
+            float result = 0.0f;
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc.Add("gameId", gameId);
+
+                var ratings = Ratings.Find(queryDoc).ToList();
+
+                foreach (var rating in ratings)
+                {
+                    result += rating["rating"].AsInt32;
+                }
+                result /= ratings.Count;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
+        }
+
+        //Passed
         public bool EditRating(int gameId, string userId, int rating)
         {
+<<<<<<< HEAD
+=======
+            try
+            {
+                BsonDocument doc = new BsonDocument();
+                doc.Add("gameId", gameId);
+                doc.Add("userId", userId);
+                doc.Add("rating", rating);
+
+                var queryDoc = new BsonDocument();
+                queryDoc.Add("gameId", gameId);
+                queryDoc.Add("userId", userId);
+
+                Ratings.ReplaceOne(queryDoc, doc);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+>>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             return true;
         }

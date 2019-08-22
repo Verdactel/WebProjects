@@ -15,7 +15,22 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            var v = db.BrowseGames("Desert");
+            //User iaro = new User("Iaro", "pass", "cool", "hui", true);
+            //User garrett = new User("Garrett", "pass", "meh", "hui", false);
+            //User gage = new User("Gage", "pass", "meh", "hui", false);
+            //db.InsertUser(ref iaro);
+            //db.InsertUser(ref garrett);
+            //db.InsertUser(ref gage);
+            //
+            //db.AddFollower(garrett.ID, iaro.ID);
+            //db.AddFollower(gage.ID, iaro.ID);
+            //int num = db.GetFollowersNum(iaro.ID);
+            //int num2 = db.GetFollowersNum(garrett.ID);
+            //var v = db.GetFollowers(iaro.ID);
+            //var v3 = db.GetFollowers(garrett.ID);
+            //var v1 = db.IsFollowing(garrett.ID, iaro.ID);
+            //var v2 = db.IsFollowing(iaro.ID, garrett.ID);
+            //db.Unfollow(garrett.ID, iaro.ID);
 
             // -- Garrett Test Section -- //
             //bool success = db.RemoveComment("5d5b545607e4373938d0ee63");
@@ -24,7 +39,24 @@ namespace VideoGameCompendium.Controllers
             comment.Id = "5d5b54ae9268f82ff822c961";
             bool success = db.EditComment(comment);
 
-            return View(v);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Browse()
+        {
+            return View(db.BrowseGames());
+        }
+
+        [HttpPost]
+        public IActionResult Browse(string search)
+        {
+            if (search != null)
+            {
+                return View(db.BrowseGames(search));
+            }
+
+            return View(db.BrowseGames());
         }
 
         [Authorize]
@@ -32,10 +64,10 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-            User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
+            //User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
 
             //query user collection
-            List<Game> collection = db.GetCollection(user.ID);
+            //List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
             //return View(collection);
