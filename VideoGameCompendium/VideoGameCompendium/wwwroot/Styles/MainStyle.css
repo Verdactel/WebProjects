@@ -170,3 +170,26 @@ header {
 .stars-hidden, .stars-gameId, .stars-userId {
 	display:none;
 }
+
+.ProfileContainer{
+    border: solid 2px black;
+    margin-top: 5%;
+    margin-left: 2%;
+    margin-right: 5%;
+}
+
+.profileUserImageBio{
+    border: solid 1px white;
+}
+
+.profileStatCollectionFavs {
+    border: solid 1px white;
+}
+
+.profileFriends {
+    border: solid 1px white;
+}
+
+.profileComments {
+    border: solid 1px white;
+}
