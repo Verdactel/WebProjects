@@ -34,10 +34,24 @@ namespace VideoGameCompendium.Controllers
 
             // -- Garrett Test Section -- //
             //bool success = db.RemoveComment("5d5b545607e4373938d0ee63");
-            //bool success = db.AddComment("Nice", "123", "Stan");
-            Comment comment = new Comment("Niiiiiiice", "Stan", "123");
-            comment.Id = "5d5b54ae9268f82ff822c961";
-            bool success = db.EditComment(comment);
+
+            Comment comment = new Comment("Hello!", "Iaro", "Coulby");
+            bool success = db.AddComment(ref comment);
+
+            Comment comment1 = new Comment("There!", "Bill", "Stan");
+            bool success1 = db.AddComment(ref comment1);
+
+            Comment comment2 = new Comment("General", "Garrett", "Flamingo");
+            bool success2 = db.AddComment(ref comment2);
+
+            Comment comment3 = new Comment("Kenobi!", "HELLO :)", "Flamingo");
+            bool success3 = db.AddComment(ref comment3);
+
+            List<Comment> comments = db.GetComments("Flamingo");
+
+            //Comment comment = new Comment("NEW TEXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "Iaro", "Coulby");
+            //comment.ID = "5d5dec5c14763f0fec957e91";
+            //bool success = db.EditComment(ref comment);
 
             return View();
         }

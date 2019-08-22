@@ -456,15 +456,14 @@ namespace VideoGameCompendium.Data
         /// <param name="pageId">The Id of the page reciveing the comment. Can be a number for a game ID or a uNumber for a user Id</param>
         /// <param name="userId">The Id of the user who posted the comment</param>
         /// <returns></returns>
-        public bool AddComment(string text, string pageId, string userId)
+        public bool AddComment(ref Comment comment)
         {
             try
             {
-                BsonDocument doc = new BsonDocument();
-                doc.Add("userId", new BsonString(userId));
-                doc.Add("text", new BsonString(text));
-                doc.Add("pageId", new BsonString(pageId));
+                BsonDocument doc = comment.ToBsonDocument();
+                doc.Remove("ID");
                 Comments.InsertOne(doc);
+                comment.ID = doc["_id"].AsObjectId.ToString();
             }
             catch(Exception ex)
             {
@@ -473,7 +472,7 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
-        // Passed
+        //Passed
         public bool RemoveComment(string commentId)
         {
             try
@@ -490,35 +489,51 @@ namespace VideoGameCompendium.Data
             return true;
         }
 
-        public bool GetComments(string commentId)
+        //Passed
+        public List<Comment> GetComments(string recieverId)
         {
-            // Store _id in Id in Comment object
-            return true;
+            List<Comment> toReturn = new List<Comment>();
+            try
+            {
+                var queryDoc = new BsonDocument();
+                queryDoc["RecieverId"] = recieverId;
+
+                var returned = Comments.Find(queryDoc).ToList();
+                
+                for(int i = 0; i < returned.Count; i++)
+                {
+                    Comment toAdd = new Comment(returned[i]["Text"].AsString, returned[i]["SenderId"].AsString, returned[i]["RecieverId"].AsString);
+                    toAdd.PostTime = returned[i]["PostTime"].ToLocalTime();
+
+                    toReturn.Add(toAdd);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return toReturn;
         }
 
-
-        public bool EditComment(Comment comment)
+        //Passed
+        public bool EditComment(ref Comment comment)
         {
             try
             {
-                //var queryDoc = new BsonDocument();
-                //queryDoc["commentId"] = ObjectId.Parse(commentId);
-                //var doc = Comments.Find(queryDoc).ToList().First();
-                //doc["text"] = text;
-
                 BsonDocument doc = comment.ToBsonDocument();
-                doc.Remove("Id");
+                doc.Remove("ID");
                 var queryDoc = new BsonDocument();
-                queryDoc["_Id"] = ObjectId.Parse(comment.Id);
+                queryDoc["_id"] = ObjectId.Parse(comment.ID);
+
+                var something = Comments.Find(queryDoc).ToList();
+                
                 Comments.ReplaceOne(queryDoc, doc);
 
-                //BsonDocument doc = user.ToBsonDocument();
-                //doc.Remove("ID");
-                //var queryDoc = new BsonDocument();
-                //queryDoc["_id"] = ObjectId.Parse(id);
-                //Users.ReplaceOne(queryDoc, doc);
+                comment.ID = doc["_id"].AsObjectId.ToString();
+                
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
