@@ -198,6 +198,12 @@ header {
     border: solid 1px white;
 }
 
+.gamePageContainer {
+    border: solid 2px black;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
 .gamePageImageDescriptionContainer {
     border: solid 2px black;
 }

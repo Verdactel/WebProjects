@@ -13,15 +13,18 @@
 	Home
 }
 
-<div class="row gamePageImageDescriptionContainer">
-	<div class="column gamePageImg"><img src="@Model.Image" /></div>	
-	<div class="dubleColumn gamePageDescription">@Model.Description</div>
-</div>
+<div class="gamePageContainer">
+    <div class="row gamePageImageDescriptionContainer">
+        <div class="column gamePageImg"><img src="@Model.Image" /></div>
+        <div class="dubleColumn gamePageDescription">@Model.Description</div>
+    </div>
 
-@*<div class="inlinBlock">*@
+    @*<div class="inlinBlock">*@
     <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
-@*</div>*@
+    @*</div>*@
 
-<div class="row gamePageCommentsContainer">
-	<div class="column gamePageComments">Comments</div>
+    <div class="row gamePageCommentsContainer">
+        <div class="column gamePageComments">Comments</div>
+    </div>
+
 </div>
