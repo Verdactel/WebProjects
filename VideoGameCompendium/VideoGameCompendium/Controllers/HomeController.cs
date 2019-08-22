@@ -41,30 +41,27 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-            //User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
+            User user = db.GetUserByID(Request.Cookies["userID"]);
 
             //query user collection
-            //List<Game> collection = db.GetCollection(user.ID);
+            List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
-            //return View(collection);
+            if(collection != null)
+            {
+                return View(collection);
+            }
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult Game(int id)
-        //{
-        //    Game game = db.GetGameByID(id);
-
-        //    if (game != null)
-        //        return View(game);
-        //    else
-        //        return RedirectToAction("Index");
-        //}
-
         [HttpPost]
-        public IActionResult Collection(int userID)
+        public IActionResult Collection(string userID)
         {
+            List<Game> collection = db.GetCollection(userID);
+            if(collection != null)
+            {
+                return View(collection);
+            }
             return View();
         }
 
@@ -76,6 +73,28 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpGet]
+        public IActionResult UserAccount()
+        {
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult UserAccount(string id, string bio, string prevBio)
+        {
+            User user = db.GetUserByID(id);
+
+            if (bio == null) bio = prevBio;
+
+            user.Bio = bio;
+            db.EditUser(id, user);
+
+            Response.Cookies.Delete("userID");
+
+            return RedirectToAction("UserAccount", "Home");
+        }
+
+        [HttpGet]
         public IActionResult Game(int id)
         {
             Game game = db.GetGameByID(id);
@@ -83,10 +102,10 @@ namespace VideoGameCompendium.Controllers
             User user = db.GetUserByID(Request.Cookies["userID"]);
             ViewBag.User = user;
 
-            if (game != null)
-                return View(game);
-            else
-                return RedirectToAction("Index");
+            //if (game != null)
+            return View(game);
+            //else
+            //    return RedirectToAction("Index");
         }
 
         [HttpGet]

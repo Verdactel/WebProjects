@@ -23,12 +23,14 @@
             }
             else
             {
+                <a class="Profile" asp-action="UserProfile" asp-controller="Home">Profile</a>
+                <a class="Account" asp-action="UserAccount" asp-controller="Home">Account</a>
                 <a class="Logout" asp-action="Logout" asp-controller="Account">Logout</a>
             }
         </header>
         <form action="~/Home/Browse" method="post">
-            Search <input type="text" name="Search" />
-            <input type="submit" name="submit" value="Search!" />
+            <input type="text" name="Search" />
+            <input type="submit" name="submit" placeholder="Search Titles" value="Search!" />
         </form>
         @RenderBody()
     </div>
