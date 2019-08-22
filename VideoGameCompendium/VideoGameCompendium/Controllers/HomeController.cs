@@ -15,6 +15,10 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
+            Comment comment = new Comment("Niiiiiiice", "Stan", "123");
+            comment.Id = "5d5b54ae9268f82ff822c961";
+            bool success = db.EditComment(comment);
+
             return View();
         }
 
