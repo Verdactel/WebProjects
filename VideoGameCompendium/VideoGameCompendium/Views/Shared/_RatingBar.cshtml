@@ -1,0 +1,11 @@
+﻿@using VideoGameCompendium.Models;
+@using VideoGameCompendium.Controllers;
+@model Tuple<Game, string>
+
+	<div class="stars-outer">
+		<div class="stars-hidden">@((int)(HomeController.db.GetAverageRating(Model.Item1.Id)))</div>
+		<div class="stars-gameId">@(Model.Item1.Id)</div>
+		<div class="stars-userId">@(Model.Item2)</div>
+		<div class="stars-inner"></div>
+		<div class="stars-cover"></div>
+	</div>

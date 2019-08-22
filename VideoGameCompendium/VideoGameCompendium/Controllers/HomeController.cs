@@ -71,9 +71,31 @@ namespace VideoGameCompendium.Controllers
             return View();
         }
 
-        public IActionResult Game(int index)
+        public IActionResult Game(int id)
         {
-            return View(db.GetGameByID(index));
+            Game game = db.GetGameByID(id);
+
+            User u = new User();
+            u.ID = "Iaro";
+            ViewBag.User = u;
+
+            if (game != null)
+                return View(game);
+            else
+                return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public JsonResult Rate(int stars, int gameId, string userId)
+        {
+            bool result = db.RateGame(gameId, userId, stars);
+            if (!result)
+                result = db.EditRating(gameId, userId, stars);
+
+            if (!result)
+                return new JsonResult(result);
+            else
+                return new JsonResult(db.GetAverageRating(gameId));
         }
     }
 }

@@ -129,3 +129,50 @@ header {
     flex-basis: 100%;
     flex: 3;
 }
+
+
+
+
+
+.stars-outer {
+	display: inline-block;
+	position: relative;
+	font-family: FontAwesome;
+}
+
+	.stars-outer::before {
+		content: "\f005 \f005 \f005 \f005 \f005";
+	}
+
+.stars-inner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 0;
+}
+
+	.stars-inner::before {
+		color: #f8ce0b;
+		content: "\f005 \f005 \f005 \f005 \f005";
+	}
+
+.stars-cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 100%;
+	visibility:hidden;
+}
+
+.stars-cover::before {
+	color: darkgoldenrod;
+	content: "\f005 \f005 \f005 \f005 \f005";
+}
+
+.stars-hidden, .stars-gameId, .stars-userId {
+	display:none;
+}
