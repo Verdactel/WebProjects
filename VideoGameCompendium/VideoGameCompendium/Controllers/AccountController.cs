@@ -69,7 +69,7 @@ namespace VideoGameCompendium.Controllers
             }
 
             //Create User
-            User user = new User(username, password, "", "", false);
+            User user = new User(username, password, "", image, false);
 
             HomeController.db.InsertUser(ref user);
             
