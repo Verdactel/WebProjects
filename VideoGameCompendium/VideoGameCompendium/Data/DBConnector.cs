@@ -18,12 +18,9 @@ namespace VideoGameCompendium.Data
         static IMongoCollection<BsonDocument> Users;
         static IMongoCollection<BsonDocument> CollectionConnectors;
         static IMongoCollection<BsonDocument> FavoritesConnector;
-<<<<<<< HEAD
         static IMongoCollection<BsonDocument> Comments;
-=======
         static IMongoCollection<BsonDocument> Ratings;
         static IMongoCollection<BsonDocument> Followers;
->>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
 
         public DBConnector()
@@ -45,12 +42,9 @@ namespace VideoGameCompendium.Data
             Users = db.GetCollection<BsonDocument>("Users");
             CollectionConnectors = db.GetCollection<BsonDocument>("CollectionConnectors");
             FavoritesConnector = db.GetCollection<BsonDocument>("FavoritesConnector");
-<<<<<<< HEAD
             Comments = db.GetCollection<BsonDocument>("Comments");
-=======
             Ratings = db.GetCollection<BsonDocument>("Ratings");
             Followers = db.GetCollection<BsonDocument>("Followers");
->>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             Console.WriteLine("Mongo Connection Success!");
         }
@@ -533,8 +527,6 @@ namespace VideoGameCompendium.Data
 
         public bool AddFollower(string followerId, string leaderId)
         {
-<<<<<<< HEAD
-=======
             try
             {
                 BsonDocument doc = new BsonDocument();
@@ -547,17 +539,13 @@ namespace VideoGameCompendium.Data
                 Console.WriteLine(e.Message);
                 return false;
             }
->>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             return true;
         }
 
         public bool Unfollow(string followerId, string leaderId)
         {
-<<<<<<< HEAD
-
-            return true;
-=======
+            
             try
             {
                 BsonDocument doc = new BsonDocument();
@@ -624,14 +612,11 @@ namespace VideoGameCompendium.Data
                 Console.WriteLine(e.Message);
                 return null;
             }
->>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
         }
 
         //Passed
         public bool RateGame(int gameId, string userId, int rating)
         {
-<<<<<<< HEAD
-=======
             try
             {
                 BsonDocument doc = new BsonDocument();
@@ -645,7 +630,6 @@ namespace VideoGameCompendium.Data
                 Console.WriteLine(e.Message);
                 return false;
             }
->>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             return true;
         }
@@ -678,8 +662,6 @@ namespace VideoGameCompendium.Data
         //Passed
         public bool EditRating(int gameId, string userId, int rating)
         {
-<<<<<<< HEAD
-=======
             try
             {
                 BsonDocument doc = new BsonDocument();
@@ -698,7 +680,6 @@ namespace VideoGameCompendium.Data
                 Console.WriteLine(e.Message);
                 return false;
             }
->>>>>>> bec2c1d07c8674aaa70d64c14d7d40fcba2e6c17
 
             return true;
         }
