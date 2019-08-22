@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		var userId = ratings[i].getElementsByClassName("stars-userId")[0].innerHTML;
 
 		var f = ratings[i].getElementsByClassName("stars-hidden")[0].innerHTML;
-		console.log(f);
+		console.log("Loaded Rating of "+f);
 		ratings[i].getElementsByClassName("stars-inner")[0].style.width = (f * 20) + "%";
 
 		ratings[i].onmouseenter = function (e) {
@@ -41,12 +41,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 			stars = stars.substring(0, stars.length-1) / 20;
 
-			console.log(stars);
+			console.log("Rated "+stars+" sending to server");
 
 			if (userId != "" && gameId != "") {
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function () {
 					if (xmlhttp.readyState === 4) {
+						console.log("Server response " + xmlhttp.response);
 						if (xmlhttp.response != 0) {
 							if (e.target.classList.contains("stars-outer"))
 								e.target.getElementsByClassName("stars-inner")[0].style.width = (xmlhttp.response * 20) + "%";
