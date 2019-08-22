@@ -59,5 +59,12 @@ namespace VideoGameCompendium.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult UserProfile()
+        {
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            return View(user);
+        }
     }
 }
