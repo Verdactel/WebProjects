@@ -2,6 +2,10 @@
 @model Game
 
 <div class="gameDisplay">
-    <img src="@Model.Image">
-    <p>@Model.Title</p>
+    <a href="~/Home/Game?index=@Model.Id">
+        <img src="@Model.Image">
+    </a>
+    <a href="~/Home/Game?index=@Model.Id">
+        <p>@Model.Title</p>
+    </a>
 </div>

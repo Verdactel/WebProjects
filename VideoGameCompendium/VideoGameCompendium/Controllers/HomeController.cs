@@ -66,5 +66,11 @@ namespace VideoGameCompendium.Controllers
             User user = db.GetUserByID(Request.Cookies["userID"]);
             return View(user);
         }
+
+        [HttpGet]
+        public IActionResult Game(int index)
+        {
+            return View(db.GetGameByID(index));
+        }
     }
 }
