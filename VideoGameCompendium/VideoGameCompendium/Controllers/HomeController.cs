@@ -76,6 +76,28 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpGet]
+        public IActionResult UserAccount()
+        {
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult UserAccount(string id, string bio, string prevBio)
+        {
+            User user = db.GetUserByID(id);
+
+            if (bio == null) bio = prevBio;
+
+            user.Bio = bio;
+            db.EditUser(id, user);
+
+            Response.Cookies.Delete(id);
+
+            return RedirectToAction("UserAccount", "Home");
+        }
+
+        [HttpGet]
         public IActionResult Game(int id)
         {
             Game game = db.GetGameByID(id);

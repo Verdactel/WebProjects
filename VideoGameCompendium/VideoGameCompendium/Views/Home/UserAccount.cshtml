@@ -1,0 +1,20 @@
+﻿@using VideoGameCompendium.Models;
+@model User
+
+@section Title
+{
+    Account
+}
+
+<div class="row">
+    <div class="column userAccountImage"><img src="~/Images/@Model.Image" /></div>
+    <div class="dubleColumn">
+        <form class="userAccountForm" action="/Home/UserAccount" method="post">
+            <input type="hidden" name="ID" value="@Model.ID" />
+            <input type="hidden" name="prevBio" value="@Model.Bio"/>
+            This is the spot for avatar<br />
+            <input type="text" name="Bio" placeholder="@Model.Bio" /><br />
+            <input type="submit" value="Save" />
+        </form>
+    </div>
+</div>
