@@ -15,10 +15,7 @@ namespace VideoGameCompendium.Controllers
 
         public IActionResult Index()
         {
-            Comment comment = new Comment("Niiiiiiice", "Stan", "123");
-            comment.Id = "5d5b54ae9268f82ff822c961";
-            bool success = db.EditComment(comment);
-
+			
             return View();
         }
 
@@ -71,13 +68,20 @@ namespace VideoGameCompendium.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult UserProfile()
+        {
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            return View(user);
+        }
+
+        [HttpGet]
         public IActionResult Game(int id)
         {
             Game game = db.GetGameByID(id);
 
-            User u = new User();
-            u.ID = "Iaro";
-            ViewBag.User = u;
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            ViewBag.User = user;
 
             if (game != null)
                 return View(game);

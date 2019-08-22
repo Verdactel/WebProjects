@@ -23,8 +23,8 @@ namespace VideoGameCompendium.Controllers
         {
             //Check the user name and password  
             //Here can be implemented checking logic from the database  
-
-            if (HomeController.db.CheckLogin(username, password) != null)
+            User user = HomeController.db.CheckLogin(username, password);
+            if (user != null)
             {
                 //Create the identity for the user  
                 var identity = new ClaimsIdentity(new[] {
@@ -35,11 +35,16 @@ namespace VideoGameCompendium.Controllers
 
                 var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                Response.Cookies.Append("userID", HomeController.db.CheckLogin(username, password).ID);
+                HttpContext.Response.Cookies.Append("userID", user.ID, new Microsoft.AspNetCore.Http.CookieOptions()
+                {
+                    Path = "/",
+                    HttpOnly = false,
+                    IsEssential = true //<- there
+                });
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
         
         public IActionResult Logout()

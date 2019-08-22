@@ -7,17 +7,20 @@ namespace VideoGameCompendium.Models
 {
     public class Comment
     {
-        public string Id { get; set; }
-        public string Text { get; set; }
-        public string SenderId { get; set; }
-        public string RecieverId { get; set; }
-        public DateTime PostTime { get; set; }
+        public string ID;
+        public string Text;
+        public string SenderId;
+        public string RecieverId;
+        public DateTime PostTime;
+
+        public Comment(){  }
 
         public Comment(string text, string senderId, string recieverId)
         {
             Text = text;
             SenderId = senderId;
             RecieverId = recieverId;
+            PostTime = DateTime.Now;
         }
     }
 }
