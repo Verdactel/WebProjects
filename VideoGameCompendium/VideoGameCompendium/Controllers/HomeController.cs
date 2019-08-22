@@ -102,10 +102,10 @@ namespace VideoGameCompendium.Controllers
             User user = db.GetUserByID(Request.Cookies["userID"]);
             ViewBag.User = user;
 
-            if (game != null)
-                return View(game);
-            else
-                return RedirectToAction("Index");
+            //if (game != null)
+            return View(game);
+            //else
+            //    return RedirectToAction("Index");
         }
 
         [HttpGet]

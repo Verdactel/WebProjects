@@ -147,10 +147,10 @@ header {
 	width: 0;
 }
 
-	.stars-inner::before {
-		color: #f8ce0b;
-		content: "\f005 \f005 \f005 \f005 \f005";
-	}
+.stars-inner::before {
+	color: #f8ce0b;
+	content: "\f005 \f005 \f005 \f005 \f005";
+}
 
 .stars-cover {
 	position: absolute;
