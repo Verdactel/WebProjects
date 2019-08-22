@@ -49,8 +49,12 @@ namespace VideoGameCompendium.Controllers
         
         public IActionResult Logout()
         {
+            string id = Request.Cookies["userID"];
+
             var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             Response.Cookies.Delete("userID");
+
             return RedirectToAction("Index","Home");
         }
 
