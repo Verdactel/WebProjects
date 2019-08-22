@@ -67,5 +67,10 @@ namespace VideoGameCompendium.Controllers
         {
             return View();
         }
+
+        public IActionResult Game(int index)
+        {
+            return View(db.GetGameByID(index));
+        }
     }
 }
