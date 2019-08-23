@@ -86,10 +86,30 @@ namespace VideoGameCompendium.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public IActionResult UserAccount()
+        {
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            return View(user);
+        }
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> UserProfile(IFormFile file)
+        public async Task<IActionResult> UserAccount(string id, string bio, string prevBio, IFormFile file)
         {
+            User user = db.GetUserByID(id);
+
+            if (bio == null)
+            {
+                if(prevBio == null)
+                {
+                    bio = "";
+                }
+                bio = prevBio;
+            }
+
+            user.Bio = bio;
+            db.EditUser(id, user);
 
             // Code to upload image if not null
             if (file != null || file.Length != 0)
@@ -113,32 +133,11 @@ namespace VideoGameCompendium.Controllers
 
                 #endregion
                 // This save the path to the record
-                User user = db.GetUserByID(Request.Cookies["userID"]);
                 System.IO.File.Delete(Path.Combine("", webPath + @"\Images\" + user.Image));
                 user.Image = newFilename;
                 db.EditUser(Request.Cookies["userID"], user);
             }
-            return RedirectToAction("UserAccount", "Home");
-        }
-
-        [HttpGet]
-        public IActionResult UserAccount()
-        {
-            User user = db.GetUserByID(Request.Cookies["userID"]);
-            return View(user);
-        }
-
-        [HttpPost]
-        public IActionResult UserAccount(string id, string bio, string prevBio)
-        {
-            User user = db.GetUserByID(id);
-
-            if (bio == null) bio = prevBio;
-
-            user.Bio = bio;
-            db.EditUser(id, user);
-
-            Response.Cookies.Delete("userID");
+            //Response.Cookies.Delete("userID");
 
             return RedirectToAction("UserAccount", "Home");
         }
