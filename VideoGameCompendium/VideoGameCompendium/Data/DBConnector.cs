@@ -639,6 +639,12 @@ namespace VideoGameCompendium.Data
         {
             try
             {
+                BsonDocument query = new BsonDocument();
+                query.Add("gameId", gameId);
+                query.Add("userId", userId);
+                if (Ratings.Find(query).ToList().Count > 0)
+                    return false;
+
                 BsonDocument doc = new BsonDocument();
                 doc.Add("gameId", gameId);
                 doc.Add("userId", userId);

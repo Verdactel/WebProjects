@@ -6,13 +6,12 @@
 }
 <div class="DisplayContainer">
     <div class="List" id="display">
-        <partial name="_DisplayCollectionPartial"/>
 
         @* Display Information based on class *@
-        @*@foreach (Game game in Model)
+        @foreach (Game game in Model)
         {
             <partial name="_DisplayCollectionPartial" model="@game" />
-        }*@
+        }
     </div>
 </div>
 

@@ -6,10 +6,31 @@
 }
 
 <div class="ProfileContainer">
-    <p>@Model.Username</p>
-    @*<p>@Model.Image</p>
-    <p>@Model.Bio</p>*@
 
-    @* Collection *@
-    @* Followers *@
+    <div class="row">
+        <div class="column profileUserImageBio">
+            <div class="row"><p>@Model.Username</p></div>           
+            <div class="row"><img src="~/Images/@Model.Image" /></div>
+            <div class="row"><p>@Model.Bio</p></div>
+        </div>
+        <div class="dubleColumn profileStatCollectionFavs">
+            <div class="row">Stat Bar</div>
+            <div class="row">View Collection</div>
+            <div class="row">Favorites</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column profileFriends">
+            <div class="row">
+                <form action="/" method="post">
+                    <input type="text" name="Key" placeholder="Friends" />
+                    <input type="submit" value="Search" />
+                </form>
+            </div>
+            <div class="row">Friends</div>
+        </div>
+        <div class="dubleColumn profileComments">Comments</div>
+    </div>
+
 </div>

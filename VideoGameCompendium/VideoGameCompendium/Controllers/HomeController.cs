@@ -41,19 +41,27 @@ namespace VideoGameCompendium.Controllers
         public IActionResult Collection()
         {
             //find user based on login
-            //User user = db.GetUserByID(HttpContext.Request.Cookies["userID"]);
+            User user = db.GetUserByID(Request.Cookies["userID"]);
 
             //query user collection
-            //List<Game> collection = db.GetCollection(user.ID);
+            List<Game> collection = db.GetCollection(user.ID);
 
             //return user collection as list
-            //return View(collection);
+            if(collection != null)
+            {
+                return View(collection);
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Collection(int userID)
+        public IActionResult Collection(string userID)
         {
+            List<Game> collection = db.GetCollection(userID);
+            if(collection != null)
+            {
+                return View(collection);
+            }
             return View();
         }
 
@@ -65,9 +73,52 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpGet]
-        public IActionResult Game(int index)
+        public IActionResult UserAccount()
         {
-            return View(db.GetGameByID(index));
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult UserAccount(string id, string bio, string prevBio)
+        {
+            User user = db.GetUserByID(id);
+
+            if (bio == null) bio = prevBio;
+
+            user.Bio = bio;
+            db.EditUser(id, user);
+
+            Response.Cookies.Delete("userID");
+
+            return RedirectToAction("UserAccount", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Game(int id)
+        {
+            Game game = db.GetGameByID(id);
+
+            User user = db.GetUserByID(Request.Cookies["userID"]);
+            ViewBag.User = user;
+
+            //if (game != null)
+            return View(game);
+            //else
+            //    return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public JsonResult Rate(int stars, int gameId, string userId)
+        {
+            bool result = db.RateGame(gameId, userId, stars);
+            if (!result)
+                result = db.EditRating(gameId, userId, stars);
+
+            if (!result)
+                return new JsonResult(result);
+            else
+                return new JsonResult(db.GetAverageRating(gameId));
         }
     }
 }
