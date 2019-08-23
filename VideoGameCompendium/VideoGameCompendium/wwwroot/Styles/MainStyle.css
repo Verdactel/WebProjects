@@ -173,6 +173,6 @@ header {
 	content: "\f005 \f005 \f005 \f005 \f005";
 }
 
-.stars-hidden, .stars-gameId, .stars-userId {
+.hidden{
 	display:none;
 }

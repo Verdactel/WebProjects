@@ -6,6 +6,7 @@
 {
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="~/Scripts/ratingScript.js"></script>
+	<script src="~/Scripts/collectionScript.js"></script>
 }
 
 @section Title
@@ -18,6 +19,8 @@
 	<partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
 	<div class="dubleColumn">@Model.Description</div>
 </div>
+
+<partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 
 <div class="row">
 	<div class="column">Rating</div>

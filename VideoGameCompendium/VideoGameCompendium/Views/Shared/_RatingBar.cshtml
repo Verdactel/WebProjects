@@ -3,9 +3,9 @@
 @model Tuple<Game, string>
 
 	<div class="stars-outer">
-		<div class="stars-hidden">@((int)(HomeController.db.GetAverageRating(Model.Item1.Id)))</div>
-		<div class="stars-gameId">@(Model.Item1.Id)</div>
-		<div class="stars-userId">@(Model.Item2)</div>
+		<div class="stars-hidden hidden">@(HomeController.db.GetAverageRating(Model.Item1.Id))</div>
+		<div class="stars-gameId hidden">@(Model.Item1.Id)</div>
+		<div class="stars-userId hidden">@(Model.Item2)</div>
 		<div class="stars-inner"></div>
 		<div class="stars-cover"></div>
 	</div>

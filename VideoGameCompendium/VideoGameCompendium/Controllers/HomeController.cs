@@ -120,5 +120,21 @@ namespace VideoGameCompendium.Controllers
             else
                 return new JsonResult(db.GetAverageRating(gameId));
         }
+
+        [HttpGet]
+        public JsonResult DoCollection(int gameId, string userId)
+        {
+            bool result = false;
+
+            if (db.GetCollection(userId).Select(x => x.Id).ToList().Contains(gameId))
+                result = db.RemoveFromCollection(userId, gameId.ToString());
+            else
+                result = db.AddToCollection(userId, gameId.ToString());
+
+            if (!result)
+                return new JsonResult("Error");
+            else
+                return new JsonResult(db.GetCollection(userId).Select(x=>x.Id).ToList().Contains(gameId) ? 1 : 2);
+        }
     }
 }
