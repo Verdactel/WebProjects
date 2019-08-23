@@ -5,19 +5,20 @@
 }
 
 <div class="SignupContainer">
-    <form class="SignupForm" action="~/Account/SignUp" method="post">
-        @if(ViewBag.UsernameError != null)
+    <form class="SignupForm" action="~/Account/SignUp" method="post" enctype="multipart/form-data">
+        @if (ViewBag.UsernameError != null)
         {
             <p>@ViewBag.UsernameError</p>
         }
         <input type="text" name="Username" required placeholder="Username" value="@(ViewBag.Username != null ? ViewBag.Username : "")" />
-        @if(ViewBag.PasswordError != null)
+        @if (ViewBag.PasswordError != null)
         {
             <p>@ViewBag.PasswordError</p>
         }
+        Upload Image<input type="file" name="file" />
         <input type="password" name="Password" required placeholder="Password" />
         <input type="password" name="ConfirmPassword" required placeholder="Confirm Password" />
-        <input type="hidden" name="Image" value="DefaultUser.png"/>
+        <input type="hidden" name="Image" value="DefaultUser.png" />
         <input type="submit" name="Submit" value="Sign Up!" />
     </form>
 </div>
