@@ -18,6 +18,8 @@
     }
 }
 
+
+
 * {
     box-sizing: border-box;
 }
@@ -65,6 +67,7 @@ header {
     padding: 10px 0px 0px 0px;
 }
 
+
 /*Base Navigation Button Styling*/
 .NavButtons{
     text-decoration: none;
@@ -99,7 +102,6 @@ header {
   color: #B30050;
 }
 
-/*Rows and Columns are for setting up page layouts*/
 .row {
     display: flex;
     flex-direction: row;
@@ -128,15 +130,19 @@ header {
     flex: 3;
 }
 
+
+
+
+
 .stars-outer {
 	display: inline-block;
 	position: relative;
 	font-family: FontAwesome;
 }
 
-.stars-outer::before {
-	content: "\f005 \f005 \f005 \f005 \f005";
-}
+	.stars-outer::before {
+		content: "\f005 \f005 \f005 \f005 \f005";
+	}
 
 .stars-inner {
 	position: absolute;
@@ -147,10 +153,10 @@ header {
 	width: 0;
 }
 
-.stars-inner::before {
-	color: #f8ce0b;
-	content: "\f005 \f005 \f005 \f005 \f005";
-}
+	.stars-inner::before {
+		color: #f8ce0b;
+		content: "\f005 \f005 \f005 \f005 \f005";
+	}
 
 .stars-cover {
 	position: absolute;
@@ -169,60 +175,4 @@ header {
 
 .stars-hidden, .stars-gameId, .stars-userId {
 	display:none;
-}
-
-.inlinBlock{
-    display: inline-block;
-}
-
-.ProfileContainer {
-    border: solid 2px black;
-    margin-top: 5%;
-    margin-left: 2%;
-    margin-right: 5%;
-}
-
-.profileUserImageBio{
-    border: solid 1px white;
-}
-
-.profileStatCollectionFavs {
-    border: solid 1px white;
-}
-
-.profileFriends {
-    border: solid 1px white;
-}
-
-.profileComments {
-    border: solid 1px white;
-}
-
-.gamePageImageDescriptionContainer {
-    border: solid 2px black;
-}
-
-.gamePageImg {
-    border: solid 1px white;
-}
-
-.gamePageDescription {
-    border: solid 1px white;
-}
-
-/*.gamePageRatingContainer {
-    border: solid 2px black;
-}
-
-.gamePageRating {
-    max-width:0px;
-    border: solid 1px white;
-}*/
-
-.gamePageCommentsContainer {
-    border: solid 2px black;
-}
-
-.gamePageComments {
-    border: solid 1px white;
 }
