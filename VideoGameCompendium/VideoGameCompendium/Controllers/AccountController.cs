@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using VideoGameCompendium.Data;
 using VideoGameCompendium.Models;
 
@@ -13,6 +17,13 @@ namespace VideoGameCompendium.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IFileProvider _fileProvider;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public AccountController(IFileProvider fileprovider, IHostingEnvironment env)
+        {
+            _fileProvider = fileprovider;
+            _hostingEnvironment = env;
+        }
         public IActionResult Login()
         {
             return View();
@@ -62,7 +73,7 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(string username, string password, string confirmPassword, string image)
+        public async Task<IActionResult> SignUp(string username, string password, string confirmPassword, string image, IFormFile file)
         {
             //Validate User
             if(!ValidateInput(username, password, confirmPassword))
@@ -71,8 +82,32 @@ namespace VideoGameCompendium.Controllers
                 return View();
             }
 
-            //Create User
-            User user = new User(username, password, "", image, false);
+            #region Image
+
+            User user = null;
+            // Code to upload image if not null
+            if (file != null || file.Length != 0)
+            {
+                // Create a File Info 
+                FileInfo fi = new FileInfo(file.FileName);
+
+                // This code creates a unique file name to prevent duplications 
+                // stored at the file location
+                var newFilename = file.FileName + "_" + string.Format("{0:d}",
+                                  (DateTime.Now.Ticks / 10) % 100000000) + fi.Extension;
+                var webPath = _hostingEnvironment.WebRootPath;
+                var path = Path.Combine("", webPath + @"\Images\" + newFilename);
+
+                // This stream the physical file to the allocate wwwroot/ImageFiles folder
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                //Create user
+                user = new User(username, password, "", newFilename, false);
+            }
+            #endregion
 
             HomeController.db.InsertUser(ref user);
             
@@ -84,6 +119,13 @@ namespace VideoGameCompendium.Controllers
             var principal = new ClaimsPrincipal(identity);
 
             var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            HttpContext.Response.Cookies.Append("userID", user.ID, new Microsoft.AspNetCore.Http.CookieOptions()
+            {
+                Path = "/",
+                HttpOnly = false,
+                IsEssential = true
+            });
 
             return RedirectToAction("Index", "Home");
         }
