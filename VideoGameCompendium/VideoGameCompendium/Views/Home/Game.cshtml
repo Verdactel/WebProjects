@@ -13,6 +13,19 @@
 	Home
 }
 
+<div class="commentField">
+    <form method="post" action="~/Home/CreateComment">
+        Make Comment:
+        <input type="text" name="Text" placeholder="Text"/>
+        @*<input type="hidden" name="ID"/>
+        <input type="hidden" name="SenderId"/>
+        <input type="hidden" name="RecieverId"/>
+        <input type="hidden" name="PostTime"/>*@
+
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
 <div class="row">
 	<div class="column"><img src="@Model.Image" /></div>
 	<partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />

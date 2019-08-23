@@ -26,6 +26,21 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
+        public IActionResult CreateComment(string text)
+        {
+            Comment comment = new Comment();
+
+            comment.Text = text;
+            //comment.SenderId
+            //comment.RecieverId
+            comment.PostTime = DateTime.Now;
+
+
+
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult Browse(string search)
         {
             if (search != null)
