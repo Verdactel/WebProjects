@@ -52,12 +52,12 @@
                         <partial name="_DisplayCommentPartial" model="comment" />
                     }
                     <form class="CommentForm" action="~/Home/PostCommentUser" method="post">
-                        <input type="text" name="text" />
-                        <input type="submit" name="submit" value="Post" />
+                        <input type="text" name="Text" />
                         <input type="hidden" name="SenderId" value="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]" />
-                        <input type="hidden" name="ReceiverId" value="@Model.ID" />
+                        <input type="hidden" name="RecieverId" value="@Model.ID" />
                         <input type="hidden" name="userID" value="@Model.ID" />
                         <input type="hidden" name="PostTime" value="@DateTime.Now" />
+                        <input type="submit" name="submit" value="Post" />
                     </form>
                 </div>
             }

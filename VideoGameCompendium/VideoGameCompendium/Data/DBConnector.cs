@@ -127,6 +127,27 @@ namespace VideoGameCompendium.Data
             return user;
         }
 
+        public List<string> GetGenres()
+        {
+            List<string> genres = new List<string>();
+            try
+            {
+                var docs = Genres.Find(new BsonDocument()).ToList();
+
+                foreach(var doc in docs)
+                {
+                    genres.Add(doc["name"].AsString);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+
+            return genres;
+        }
+
         //Passed
         public bool CheckForUsername(string username)
         {
@@ -717,5 +738,7 @@ namespace VideoGameCompendium.Data
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
+
+
     }
 }
