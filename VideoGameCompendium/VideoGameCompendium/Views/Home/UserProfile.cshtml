@@ -2,19 +2,27 @@
 @model User
 
 @section Title{
-    Profile
+	Profile
+}
+
+@section AddToHead
+    {
+	<script src="~/Scripts/followScript.js"></script>
 }
 
 <div class="ProfileContainer">
 
 	<div>
-		<div>
-			<div><p>@Model.Username</p></div>
-			<div><img src="~/Images/@Model.Image" /></div>
-			<div><p>@Model.Bio</p></div>
-		</div>
-			<div class="row">View Collection</div>
-			<div class="row">Favorites</div>
+		<div><p>@Model.Username</p></div>
+		<div><img src="~/Images/@Model.Image" /></div>
+		<div><p>@Model.Bio</p></div>
+	</div>
+
+	<div class="row">View Collection</div>
+	<div class="row">Favorites</div>
+
+	<div>
+		<partial name="_FollowButton" model="Model" />
 	</div>
 
 	<div>
