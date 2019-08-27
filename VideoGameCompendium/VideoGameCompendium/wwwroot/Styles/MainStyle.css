@@ -1,4 +1,6 @@
-﻿@keyframes fadeIn{
+﻿
+/*Animations for Fading in*/
+@keyframes fadeIn {
     0% {
         opacity: 0;
     }
@@ -8,26 +10,29 @@
     }
 }
 
-@keyframes slidetoright{
-    0%{
-        transform:translateX(0px);
-    }
-    100%
-    {
-        transform:translateX(100px);
-    }
+
+.indexContent {
+    border: 1px solid red;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Exo', sans-serif;
+    position: absolute;
+    left: 40%;
+    top: 25%;
 }
 
-
+.indexTitle {
+    font-size: 5em;
+}
 
 * {
     box-sizing: border-box;
 }
 
-*:before,
-*:after {
-    box-sizing: border-box;
-}
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
 
 html,
 body {
@@ -47,6 +52,7 @@ body {
     position: relative;*/
 }
 
+/*Footer Styling*/
 footer {
     background-color: #171717;
     color: #E02176;
@@ -56,8 +62,7 @@ footer {
     font-size: 15px;
     padding-top: 10px;
     flex-shrink: 0;
-    /*position: absolute;
-    bottom: 0;*/
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 header {
@@ -67,39 +72,94 @@ header {
     padding: 10px 0px 0px 0px;
 }
 
-
-/*Base Navigation Button Styling*/
-.NavButtons{
+/*NavButton Styling*/
+.NavButtons {
     text-decoration: none;
     display: inline-block;
     color: white;
     text-align: center;
     font-size: 26px;
-
     padding-left: 5px;
     padding-right: 5px;
     margin-right: 0.625%;
     margin-left: 1%;
-
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
-
     -webkit-transition: color 0.75s;
-    -webkit-animation-name:fadeIn;
-    -webkit-animation-fill-mode:forwards;
-    -webkit-animation-duration:2.0s;
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: 2.0s;
     -webkit-animation-iteration-count: 1;
 }
 
+
+/*Grid Styling for Browse*/
+.GameCard {
+    display: inline-block;
+    border: 3px solid #C71E6A;
+    height: 275px;
+    width: 250px;
+    text-align: center;
+    overflow: hidden;
+    background-color: #9C1753;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: Cairo;
+    color: white;
+    margin: 6px;
+    -webkit-transition: color 0.75s;
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: 2.0s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-transition: background-color 1s;
+}
+
+    /*Game Card Styling + Animations*/
+    .GameCard img {
+        height: 150px;
+        width: 150px;
+        padding: 5px;
+        transition-timing-function: ease;
+        transition: all 1s;
+        justify-content: center;
+    }
+
+        .GameCard img:hover {
+            transition-timing-function: ease;
+            height: 175px;
+            width: 175px;
+        }
+
+    .GameCard:hover {
+        background-color: #6B1039;
+        -webkit-transition: background-color 0.75s;
+    }
+
+    .GameCard a:link {
+        color: white;
+        text-decoration: none;
+    }
+
+    .GameCard a:visited {
+        color: white;
+    }
+
+.gameDisplay {
+    margin: auto;
+    width: 70%;
+}
+
+
 /*When you hover over one of the buttons*/
 .NavButtons:hover {
-  color: #E02176;
-  -webkit-transition: color 0.75s;
+    color: #E02176;
+    -webkit-transition: color 0.75s;
 }
 
 /*When you click on a button*/
 .NavButtons:active {
-  color: #B30050;
+    color: #B30050;
 }
 
 .row {
@@ -115,6 +175,12 @@ header {
     flex-basis: 100%;
     flex: 1;
 }
+
+    /*Column Images resize*/
+    .column img {
+        height: 200px;
+        width: 200px;
+    }
 
 .dubleColumn {
     display: flex;
@@ -135,44 +201,44 @@ header {
 
 
 .stars-outer {
-	display: inline-block;
-	position: relative;
-	font-family: FontAwesome;
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
 }
 
-	.stars-outer::before {
-		content: "\f005 \f005 \f005 \f005 \f005";
-	}
+    .stars-outer::before {
+        content: "\f005 \f005 \f005 \f005 \f005";
+    }
 
 .stars-inner {
-	position: absolute;
-	top: 0;
-	left: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
 }
 
-	.stars-inner::before {
-		color: #f8ce0b;
-		content: "\f005 \f005 \f005 \f005 \f005";
-	}
+    .stars-inner::before {
+        color: #f8ce0b;
+        content: "\f005 \f005 \f005 \f005 \f005";
+    }
 
 .stars-cover {
-	position: absolute;
-	top: 0;
-	left: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	width: 100%;
-	visibility:hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    visibility: hidden;
 }
 
-.stars-cover::before {
-	color: darkgoldenrod;
-	content: "\f005 \f005 \f005 \f005 \f005";
-}
+    .stars-cover::before {
+        color: darkgoldenrod;
+        content: "\f005 \f005 \f005 \f005 \f005";
+    }
 
-.hidden{
-	display:none;
+.hidden {
+    display: none;
 }
