@@ -39,14 +39,11 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateComment(string text, string senderId, string recieverId, DateTime postTime)
+        public IActionResult CreateComment(string text, string userId, string recieverId)
         {
-            Comment comment = new Comment();
+            Comment comment = new Comment(text, userId, recieverId);
 
-            comment.Text = text;
-            comment.SenderId = ViewBag.User;
-            comment.RecieverId = recieverId;
-            comment.PostTime = DateTime.Now;
+
 
             db.AddComment(ref comment);
             return RedirectToAction("Game", "Home");
