@@ -11,6 +11,7 @@ using System.Drawing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace VideoGameCompendium.Controllers
 {
@@ -35,13 +36,31 @@ namespace VideoGameCompendium.Controllers
         [HttpGet]
         public IActionResult Browse()
         {
+            #region Get Genres
+            IEnumerable<string> genres = db.GetGenres();
+            SelectList genreList = new SelectList(genres);
+            ViewBag.Genres = genreList;
+            #endregion
+
+            #region Get ESRB
+            List<SelectListItem> esrbRatings = new List<SelectListItem>();
+            List<string> esrbCode = new List<string>() { "EC", "E", "E 10+", "T", "M", "A" };
+            List<int> esrbId = new List<int>() { 7, 8, 9, 10, 11, 12 };
+
+            for (int i = 0; i < esrbCode.Count; i++)
+            {
+                esrbRatings.Add(new SelectListItem(esrbCode[i], esrbId[i].ToString()));
+            }
+
+            ViewBag.ESRB = esrbRatings;
+            #endregion
             return View(db.BrowseGames());
         }
 
         [HttpPost]
-        public IActionResult Browse(string search = "")
+        public IActionResult Browse(string search = "", string platform = "", string genre = "", int esrb = 12)
         {
-            return View(db.BrowseGames(search));
+            return View(db.BrowseGames(search, platform, genre, esrb));
         }
 
         [Authorize]
@@ -99,7 +118,7 @@ namespace VideoGameCompendium.Controllers
 
             if (bio == null)
             {
-                if(prevBio == null)
+                if (prevBio == null)
                 {
                     bio = "";
                 }
@@ -152,7 +171,7 @@ namespace VideoGameCompendium.Controllers
             ViewBag.Comments = comments;
 
             if (game != null)
-            return View(game);
+                return View(game);
             else
                 return RedirectToAction("Index");
         }
@@ -183,7 +202,7 @@ namespace VideoGameCompendium.Controllers
             if (!result)
                 return new JsonResult("Error");
             else
-                return new JsonResult(db.GetCollection(userId).Select(x=>x.Id).ToList().Contains(gameId) ? 1 : 2);
+                return new JsonResult(db.GetCollection(userId).Select(x => x.Id).ToList().Contains(gameId) ? 1 : 2);
         }
 
         [HttpPost]

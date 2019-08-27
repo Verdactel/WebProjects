@@ -15,11 +15,22 @@
     <button class="gridBtn" onclick="GridDisplay()">Grid</button>
 </div>
 
+<form class="FilterForm" action="~/Browse" method="post">
+    <input type="text" name="platform" placeholder="Switch" />
+    <select asp-items="@ViewBag.Genres" name="genre">
+        <option value="0">Select One</option>
+    </select><br />
+    <select asp-items="@ViewBag.ESRB" name="esrb">
+        <option value="0">Select One</option>
+    </select>
+    <input type="submit" name="submit" value="Filter!" />
+</form>
+
 <div class="gameDisplay">
     @if (Model != null)
     {
         @foreach (Game game in Model)
-        {           
+        {
             <div class="GameCard List" id="display">
                 <partial name="_DisplayGamesBrowsePartial" model="game" />
             </div>
