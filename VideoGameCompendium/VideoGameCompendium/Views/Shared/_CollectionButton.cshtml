@@ -1,0 +1,19 @@
+﻿@using VideoGameCompendium.Models;
+@using VideoGameCompendium.Controllers;
+@model Tuple<Game, User>
+
+@if (Model.Item2 != null)
+{
+	<button class="collectionButton">
+		<div class="hidden gameId">@Model.Item1.Id</div>
+		<div class="hidden userId">@Model.Item2.ID</div>
+		@if (HomeController.db.GetCollection(Model.Item2.ID).Select(x => x.Id).ToList().Contains(Model.Item1.Id))
+		{
+		<p>Remove from Collection</p>
+		}
+		else
+		{
+		<p>Add to Collection</p>
+		}
+	</button>
+}

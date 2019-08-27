@@ -188,7 +188,7 @@ namespace VideoGameCompendium.Data
                 
                 for(int i = 0; i < result.Count; i++)
                 { 
-                    int id = result[i]["gameId"].AsInt32;
+                    int id = Int32.Parse(result[i]["gameId"].AsString);
                     
                     Game game = GetGameByID(id);
                     toReturn.Add(game);

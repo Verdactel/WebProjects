@@ -10,17 +10,17 @@
     <link href="@Url.Content("~/Styles/CollectionStyle.css")" rel="stylesheet" />
 }
 
-@*<div class="buttonToggle">
+<div class="GameLayoutToggle">
     <button class="listBtn" onclick="ListDisplay()">List</button>
     <button class="gridBtn" onclick="GridDisplay()">Grid</button>
-</div>*@
+</div>
 
 <div class="gameDisplay">
     @if (Model != null)
     {
         @foreach (Game game in Model)
         {           
-            <div class="GameCard">
+            <div class="GameCard List" id="display">
                 <partial name="_DisplayGamesBrowsePartial" model="game" />
             </div>
         }
@@ -28,13 +28,13 @@
 </div>
 
 
-@*<script>
+<script>
     var element = document.getElementById("display");
     function ListDisplay() {
-        element.className = "List";
+        element.className = "GameCard List";
     }
 
     function GridDisplay() {
-        element.className = "Grid";
+        element.className = "GameCard Grid";
     }
-</script>*@
+</script>

@@ -23,7 +23,7 @@ namespace VideoGameCompendium
                 (
                     new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images"))
                 );
-
+            services.AddHttpContextAccessor();
             services.AddMvc();
         }
 

@@ -1,11 +1,16 @@
 ﻿@using VideoGameCompendium.Models;
 @using VideoGameCompendium.Controllers;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model Game
 
 @section AddToHead
     {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="~/Scripts/ratingScript.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="~/Scripts/collectionScript.js"></script>
+>>>>>>> 3e23e7baa2f3700c222ffb2108639e6344cb02d5
 }
 
 @section Title
@@ -20,12 +25,34 @@
     <div class="dubleColumn">@Model.Description</div>
 </div>
 
+<partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+
 <div class="row">
     <div class="column">Rating</div>
 </div>
 
 <div class="row">
     <div class="column">Comments</div>
+    <div class="column">
+        <label>Comments</label>
+        @if (ViewBag.Comments != null)
+        {
+            <div class="CommentContainer">
+                @foreach (Comment comment in ViewBag.Comments)
+                {
+                    <partial name="_DisplayCommentPartial" model="comment" />
+                }
+                <form class="CommentForm" action="~/Home/PostCommentGame" method="post">
+                    <input type="text" name="text" />
+                    <input type="submit" name="submit" value="Post" />
+                    <input type="hidden" name="SenderId" value="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]" />
+                    <input type="hidden" name="ReceiverId" value="@Model.Id" />
+                    <input type="hidden" name="gameID" value="@Model.Id" />
+                    <input type="hidden" name="PostTime" value="@DateTime.Now" />
+                </form>
+            </div>
+        }
+    </div>
 </div>
 
 
