@@ -132,7 +132,7 @@ namespace VideoGameCompendium.Data
             List<string> genres = new List<string>();
             try
             {
-                var docs = Users.Find(new BsonDocument()).ToList();
+                var docs = Genres.Find(new BsonDocument()).ToList();
 
                 foreach(var doc in docs)
                 {

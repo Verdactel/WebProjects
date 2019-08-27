@@ -15,7 +15,7 @@
     <button class="gridBtn" onclick="GridDisplay()">Grid</button>
 </div>
 
-<form class="FilterForm" action="~/">
+<form class="FilterForm" action="~/Browse" method="post">
     <input type="text" name="platform" placeholder="Switch" />
     <select asp-items="@ViewBag.Genres" name="genre">
         <option value="0">Select One</option>
