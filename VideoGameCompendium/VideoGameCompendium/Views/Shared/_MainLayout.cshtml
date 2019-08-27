@@ -3,13 +3,14 @@
 
 <html>
 <head>
-	<meta name="viewport" content="width=device-width" />
-	<link href="~/Styles/MainStyle.css" rel="stylesheet" />
-	@if (IsSectionDefined("AddToHead"))
-	{
-		@RenderSection("AddToHead", required: false)
-	}
-	<title>@RenderSection("Title", false)</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Styles/MainStyle.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Cairo|Exo&display=swap" rel="stylesheet">
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
+    <title>@RenderSection("Title", false)</title>
 </head>
 <body>
 	<div class="main-container" id="main-container">
@@ -19,14 +20,14 @@
 			<a class="NavButtons" asp-action="Collection" asp-controller="Home">Collection</a>
 			@if (User.Identity.Name == null)
 			{
-				<a class="Login" asp-action="Login" asp-controller="Account">Login</a>
-				<a class="Signup" asp-action="Signup" asp-controller="Account">Sign Up</a>
+				<a class="Login NavButtons" asp-action="Login" asp-controller="Account">Login</a>
+				<a class="Signup NavButtons" asp-action="Signup" asp-controller="Account">Sign Up</a>
 			}
 			else
 			{
-				<a class="Profile" asp-action="UserProfile" asp-controller="Home" asp-route-id="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]">Profile</a>
-				<a class="Account" asp-action="UserAccount" asp-controller="Home">Account</a>
-				<a class="Logout" asp-action="Logout" asp-controller="Account">Logout</a>
+				<a class="Profile NavButtons" asp-action="UserProfile" asp-controller="Home" asp-route-id="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]">Profile</a>
+				<a class="Account NavButtons" asp-action="UserAccount" asp-controller="Home">Account</a>
+				<a class="Logout NavButtons" asp-action="Logout" asp-controller="Account">Logout</a>
 			}
 		</header>
 		<form action="~/Home/Browse" method="post">
