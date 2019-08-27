@@ -14,6 +14,7 @@ namespace VideoGameCompendium.Models
         public string Bio;
         public string Image;
         public bool IsAdmin;
+        public List<Game> Collection { get; set; }
 
         public User() { }
 
@@ -24,7 +25,7 @@ namespace VideoGameCompendium.Models
             Bio = bio;
             Image = image;
             IsAdmin = isAdmin;
-            
+            Collection = new List<Game>();
         }
     }
 }

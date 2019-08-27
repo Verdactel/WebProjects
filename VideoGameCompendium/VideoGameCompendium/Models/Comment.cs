@@ -12,6 +12,7 @@ namespace VideoGameCompendium.Models
         public string SenderId;
         public string RecieverId;
         public DateTime PostTime;
+        //public List<Game> Collection;
 
         public Comment(){  }
 
@@ -21,6 +22,7 @@ namespace VideoGameCompendium.Models
             SenderId = senderId;
             RecieverId = recieverId;
             PostTime = DateTime.Now;
+            //Collection = new List<Game>();
         }
     }
 }

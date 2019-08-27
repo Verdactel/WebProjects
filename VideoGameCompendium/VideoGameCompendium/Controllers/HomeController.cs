@@ -171,10 +171,11 @@ namespace VideoGameCompendium.Controllers
 
             List<Comment> comments = db.GetComments(id.ToString());
             ViewBag.Comments = comments;
-            //if (game != null)
+
+            if (game != null)
             return View(game);
-            //else
-            //    return RedirectToAction("Index");
+            else
+                return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -207,19 +208,19 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostCommentGame([Bind("text, SenderId, RecieverId, PostTime")] Comment comment, int gameID)
+        public IActionResult PostCommentGame(string text, string userId, int gameId)
         {
-            Game game = db.GetGameByID(gameID);
-            db.AddComment(ref comment);
-            return RedirectToAction("Game", "Home", game);
+            Comment comm = new Comment(text, userId, gameId.ToString());
+            db.AddComment(ref comm);
+            return RedirectToAction("Game", "Home", new { id = gameId });
         }
 
         [HttpPost]
-        public IActionResult PostCommentUser(Comment comment, string userID)
+        public IActionResult PostCommentUser(string text, string userId, string receiverId)
         {
-            User user = db.GetUserByID(userID);
-            db.AddComment(ref comment);
-            return RedirectToAction("UserProfile", "Home", user);
+            Comment comm = new Comment(text, userId, receiverId);
+            db.AddComment(ref comm);
+            return RedirectToAction("UserProfile", "Home", userId);
         }
     }
 }

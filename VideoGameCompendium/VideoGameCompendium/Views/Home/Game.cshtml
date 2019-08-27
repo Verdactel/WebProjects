@@ -15,6 +15,7 @@
     Home
 }
 
+
 <div class="row">
     <div class="column"><img src="@Model.Image" /></div>
     <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
@@ -48,4 +49,13 @@
             </div>
         }
     </div>
+</div>
+<div class="commentField">
+    <form method="post" action="~/Home/PostCommentGame">
+        Make Comment:
+        <input type="text" name="text" placeholder="Text" />
+        <input type="hidden" name="userId" value="@ViewBag.User.ID" />
+        <input type="hidden" name="gameId" value="@Model.Id"/>
+        <input type="submit" value="Submit" />
+    </form>
 </div>
