@@ -39,14 +39,9 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
-        public IActionResult Browse(string search)
+        public IActionResult Browse(string search = "")
         {
-            if (search != null)
-            {
-                return View(db.BrowseGames(search));
-            }
-
-            return View(db.BrowseGames());
+            return View(db.BrowseGames(search));
         }
 
         [Authorize]
@@ -78,22 +73,13 @@ namespace VideoGameCompendium.Controllers
             return View();
         }
 
-        [Authorize]
         [HttpGet]
-        public IActionResult UserProfile()
-        {
-            User user = db.GetUserByID(Request.Cookies["userID"]);
-            ViewBag.Comments = db.GetComments(user.ID);
-            ViewBag.Followers = db.GetFollowers(user.ID);
-            return View(user);
-        }
-
-        [HttpGet("{id}")]
         public IActionResult UserProfile(string id)
         {
             User user = db.GetUserByID(id);
             ViewBag.Comments = db.GetComments(id);
             ViewBag.Followers = db.GetFollowers(id);
+            ViewBag.User = user;
             return View(user);
         }
 
@@ -213,7 +199,7 @@ namespace VideoGameCompendium.Controllers
         {
             Comment comm = new Comment(text, userId, receiverId);
             db.AddComment(ref comm);
-            return RedirectToAction("UserProfile", "Home", userId);
+            return RedirectToAction("UserProfile", "Home", new { id = receiverId });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@using VideoGameCompendium.Models;
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model User
 
 @section Title{
@@ -8,60 +7,46 @@
 
 <div class="ProfileContainer">
 
-    <div class="row">
-        <div class="column profileUserImageBio">
-            <div class="row"><p>@Model.Username</p></div>
-            <div class="row"><img src="~/Images/@Model.Image" /></div>
-            <div class="row"><p>@Model.Bio</p></div>
-        </div>
-        <div class="dubleColumn profileStatCollectionFavs">
-            <div class="row">Stat Bar</div>
-            <div class="row">View Collection</div>
-            <div class="row">Favorites</div>
-        </div>
-    </div>
+	<div>
+		<div>
+			<div><p>@Model.Username</p></div>
+			<div><img src="~/Images/@Model.Image" /></div>
+			<div><p>@Model.Bio</p></div>
+		</div>
+			<div class="row">View Collection</div>
+			<div class="row">Favorites</div>
+	</div>
 
-    <div class="row">
-        <div class="column profileFriends">
-            <div class="row">
-                <form action="/" method="post">
-                    <input type="text" name="Key" placeholder="Friends" />
-                    <input type="submit" value="Search" />
-                </form>
-            </div>
-            <div class="row">
-                <label>Followers</label>
-                @if (ViewBag.Followers != null)
-                {
-                    <div class="FollowerContainer">
-                        @foreach (User user in ViewBag.Followers)
-                        {
-                            <partial name="_DisplayFollowerPartial" model="user" />
-                        }
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="dubleColumn profileComments">
-            <label>Comments</label>
-            @if (ViewBag.Comments != null)
-            {
-                <div class="CommentContainer">
-                    @foreach (Comment comment in ViewBag.Comments)
-                    {
-                        <partial name="_DisplayCommentPartial" model="comment" />
-                    }
-                    <form class="CommentForm" action="~/Home/PostCommentUser" method="post">
-                        <input type="text" name="text" />
-                        <input type="submit" name="submit" value="Post" />
-                        <input type="hidden" name="SenderId" value="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]" />
-                        <input type="hidden" name="ReceiverId" value="@Model.ID" />
-                        <input type="hidden" name="userID" value="@Model.ID" />
-                        <input type="hidden" name="PostTime" value="@DateTime.Now" />
-                    </form>
-                </div>
-            }
-        </div>
-    </div>
+	<div>
+		<label>Followers</label>
+		@if (ViewBag.Followers != null)
+		{
+			<div>
+				@foreach (User user in ViewBag.Followers)
+				{
+					<partial name="_DisplayFollowerPartial" model="user" />
+				}
+			</div>
+		}
+	</div>
 
+	<div>
+		<form method="post" action="~/Home/PostCommentUser">
+			Make Comment:
+			<input type="text" name="text" placeholder="Text" />
+			<input type="hidden" name="userId" value="@ViewBag.User.ID" />
+			<input type="hidden" name="receiverId" value="@Model.ID" />
+			<input type="submit" value="Submit" />
+		</form>
+
+		@if (ViewBag.Comments != null)
+		{
+			<div>
+				@foreach (Comment comment in ViewBag.Comments)
+				{
+					<partial name="_DisplayCommentPartial" model="comment" />
+				}
+			</div>
+		}
+	</div>
 </div>
