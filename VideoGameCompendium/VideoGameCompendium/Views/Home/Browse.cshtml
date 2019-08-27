@@ -15,13 +15,13 @@
     <button class="gridBtn" onclick="GridDisplay()">Grid</button>
 </div>
 
-<form class="FilterForm" action="~/Browse" method="post">
+<form class="FilterForm" action="~/Home/Browse" method="post">
     <input type="text" name="platform" placeholder="Switch" />
     <select asp-items="@ViewBag.Genres" name="genre">
-        <option value="0">Select One</option>
+        <option value="">Select One</option>
     </select><br />
     <select asp-items="@ViewBag.ESRB" name="esrb">
-        <option value="0">Select One</option>
+        <option value="">Select One</option>
     </select>
     <input type="submit" name="submit" value="Filter!" />
 </form>

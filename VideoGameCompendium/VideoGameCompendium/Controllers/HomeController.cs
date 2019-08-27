@@ -42,6 +42,22 @@ namespace VideoGameCompendium.Controllers
             ViewBag.Genres = genreList;
             #endregion
 
+            #region Get ESRB
+            List<SelectListItem> esrbRatings = new List<SelectListItem>();
+            List<string> esrbCode = new List<string>() { "EC", "E", "E 10+", "T", "M", "A" };
+            List<int> esrbId = new List<int>() { 7, 8, 9, 10, 11, 12 };
+
+            for (int i = 0; i < esrbCode.Count; i++)
+            {
+                esrbRatings.Add(new SelectListItem(esrbCode[i], esrbId[i].ToString()));
+            }
+
+            ViewBag.ESRB = esrbRatings;
+            #endregion
+            return View(db.BrowseGames());
+
+        }
+
         [HttpPost]
         public IActionResult CreateComment(string text, string userId, string recieverId)
         {
@@ -65,7 +81,8 @@ namespace VideoGameCompendium.Controllers
         [HttpPost]
         public IActionResult Browse(string search = "", string platform = "", string genre = "", int esrb = 12)
         {
-            return View(db.BrowseGames(search, platform, genre, esrb));
+            List<Game> toReturn = db.BrowseGames(search, platform, genre, esrb);
+            return View(toReturn);
         }
 
         [Authorize]
