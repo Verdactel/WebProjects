@@ -3,39 +3,41 @@
 @model Game
 
 @section AddToHead
-{
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="~/Scripts/ratingScript.js"></script>
+    {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/ratingScript.js"></script>
 }
 
 @section Title
-{
-	Home
+    {
+    Home
 }
+
+
+<div class="row">
+    <div class="column"><img src="@Model.Image" /></div>
+    <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
+    <div class="dubleColumn">@Model.Description</div>
+</div>
+
+<div class="row">
+    <div class="column">Rating</div>
+</div>
+
+<div class="row">
+    <div class="column">Comments</div>
+</div>
+
 
 <div class="commentField">
     <form method="post" action="~/Home/CreateComment">
         Make Comment:
-        <input type="text" name="Text" placeholder="Text"/>
-        @*<input type="hidden" name="ID"/>
-        <input type="hidden" name="SenderId"/>
-        <input type="hidden" name="RecieverId"/>
-        <input type="hidden" name="PostTime"/>*@
+        <input type="text" name="Text" placeholder="Text" />
 
-        <input type="submit" value="Submit"/>
+        <input type="hidden" name="senderId" value="@ViewBag.User.ID" />
+        <input type="hidden" name="recieverId" value="@Model.Id"/>
+        <input type="hidden" name="postTime" value="@DateTime.Now" />
+
+        <input type="submit" value="Submit" />
     </form>
-</div>
-
-<div class="row">
-	<div class="column"><img src="@Model.Image" /></div>
-	<partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
-	<div class="dubleColumn">@Model.Description</div>
-</div>
-
-<div class="row">
-	<div class="column">Rating</div>
-</div>
-
-<div class="row">
-	<div class="column">Comments</div>
 </div>
