@@ -31,7 +31,7 @@
     {
         @foreach (Game game in Model)
         {
-            <div class="GameCard List" id="display">
+            <div class="GameCard List">
                 <partial name="_DisplayGamesBrowsePartial" model="game" />
             </div>
         }
@@ -40,7 +40,7 @@
 
 
 <script>
-    var element = document.getElementById("display");
+	var element = document.getElementsByClassName("GameCard");
     function ListDisplay() {
         element.className = "GameCard List";
     }

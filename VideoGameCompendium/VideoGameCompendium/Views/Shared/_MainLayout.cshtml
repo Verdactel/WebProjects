@@ -1,62 +1,63 @@
 ﻿<!DOCTYPE html>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <link href="~/Styles/MainStyle.css" rel="stylesheet" />
-    @if (IsSectionDefined("AddToHead"))
-    {
-        @RenderSection("AddToHead", required: false)
-    }
-    <title>@RenderSection("Title", false)</title>
+	<meta name="viewport" content="width=device-width" />
+	<link href="~/Styles/MainStyle.css" rel="stylesheet" />
+	@if (IsSectionDefined("AddToHead"))
+	{
+		@RenderSection("AddToHead", required: false)
+	}
+	<title>@RenderSection("Title", false)</title>
 </head>
 <body>
-    <div class="main-container" id="main-container">
-        <header>
-            <a class="NavButtons" asp-action="Index" asp-controller="Home">Home</a>
-            <a class="NavButtons" asp-action="Browse" asp-controller="Home">Browse</a>
-            <a class="NavButtons" asp-action="Collection" asp-controller="Home">Collection</a>
-            @if (User.Identity.Name == null)
-            {
-                <a class="Login" asp-action="Login" asp-controller="Account">Login</a>
-                <a class="Signup" asp-action="Signup" asp-controller="Account">Sign Up</a>
-            }
-            else
-            {
-                <a class="Profile" asp-action="UserProfile" asp-controller="Home">Profile</a>
-                <a class="Account" asp-action="UserAccount" asp-controller="Home">Account</a>
-                <a class="Logout" asp-action="Logout" asp-controller="Account">Logout</a>
-            }
-        </header>
-        <form action="~/Home/Browse" method="post">
-            <input type="text" name="Search" />
-            <input type="submit" name="submit" placeholder="Search Titles" value="Search!" />
-        </form>
-        @RenderBody()
-    </div>
-    <footer>
-        The Collectors &copy; @DateTime.Now.Year
-        @* Crediting for potential use of Gear vector image *@
-        @*<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" 
-                              title="Gregor Cresnar">Gregor Cresnar</a>
-             from <a href="https://www.flaticon.com/" 
-                     title="Flaticon">www.flaticon.com</a> 
-             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 
-                               title="Creative Commons BY 3.0" 
-                               target="_blank">CC 3.0 BY</a>
-        </div>*@
-    </footer>
-    <script>
-        window.onload = HeightCheck;
+	<div class="main-container" id="main-container">
+		<header>
+			<a class="NavButtons" asp-action="Index" asp-controller="Home">Home</a>
+			<a class="NavButtons" asp-action="Browse" asp-controller="Home">Browse</a>
+			<a class="NavButtons" asp-action="Collection" asp-controller="Home">Collection</a>
+			@if (User.Identity.Name == null)
+			{
+				<a class="Login" asp-action="Login" asp-controller="Account">Login</a>
+				<a class="Signup" asp-action="Signup" asp-controller="Account">Sign Up</a>
+			}
+			else
+			{
+				<a class="Profile" asp-action="UserProfile" asp-controller="Home" asp-route-id="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]">Profile</a>
+				<a class="Account" asp-action="UserAccount" asp-controller="Home">Account</a>
+				<a class="Logout" asp-action="Logout" asp-controller="Account">Logout</a>
+			}
+		</header>
+		<form action="~/Home/Browse" method="post">
+			<input type="text" name="Search" />
+			<input type="submit" name="submit" placeholder="Search Titles" value="Search!" />
+		</form>
+		@RenderBody()
+	</div>
+	<footer>
+		The Collectors &copy; @DateTime.Now.Year
+		@* Crediting for potential use of Gear vector image *@
+		@*<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar"
+								  title="Gregor Cresnar">Gregor Cresnar</a>
+				 from <a href="https://www.flaticon.com/"
+						 title="Flaticon">www.flaticon.com</a>
+				 is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+								   title="Creative Commons BY 3.0"
+								   target="_blank">CC 3.0 BY</a>
+			</div>*@
+	</footer>
+	<script>
+		window.onload = HeightCheck;
 
-        function HeightCheck() {
-            var clientHeight = document.getElementById("main-container").clientHeight;
-            var screenHeight = screen.height;
+		function HeightCheck() {
+			var clientHeight = document.getElementById("main-container").clientHeight;
+			var screenHeight = screen.height;
 
-            if (clientHeight < screenHeight) {
-                document.getElementById("main-container").style.minHeight = "100vh";
-            }
-        }
-    </script>
+			if (clientHeight < screenHeight) {
+				document.getElementById("main-container").style.minHeight = "100vh";
+			}
+		}
+	</script>
 </body>
 </html>
