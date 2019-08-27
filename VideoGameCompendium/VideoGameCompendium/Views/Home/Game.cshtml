@@ -24,7 +24,6 @@
 
 <partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 
-<<<<<<< HEAD
 <div>
 	<form method="post" action="~/Home/PostCommentGame">
 		Make Comment:
@@ -44,41 +43,3 @@
 		</div>
 	}
 </div>
-
-=======
-<div class="row">
-    <div class="column">Rating</div>
-</div>
-
-<div class="row">
-    <div class="column">
-        <label>Comments</label>
-        @if (ViewBag.Comments != null)
-        {
-            <div class="CommentContainer">
-                @foreach (Comment comment in ViewBag.Comments)
-                {
-                    <partial name="_DisplayCommentPartial" model="comment" />
-                }
-                <form class="CommentForm" action="~/Home/PostCommentGame" method="post">
-                    <input type="text" name="Text" />
-                    <input type="hidden" name="SenderId" value="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]" />
-                    <input type="hidden" name="RecieverId" value="@Model.Id" />
-                    <input type="hidden" name="gameID" value="@Model.Id" />
-                    <input type="hidden" name="PostTime" value="@DateTime.Now" />
-                    <input type="submit" name="submit" value="Post" />
-                </form>
-            </div>
-        }
-    </div>
-</div>
-<div class="commentField">
-    <form method="post" action="~/Home/PostCommentGame">
-        Make Comment:
-        <input type="text" name="text" placeholder="Text" />
-        <input type="hidden" name="userId" value="@ViewBag.User.ID" />
-        <input type="hidden" name="gameId" value="@Model.Id"/>
-        <input type="submit" value="Submit" />
-    </form>
-</div>
->>>>>>> 60c46e79ec092ebf039ce3bc8137030c7d8bbd7a
