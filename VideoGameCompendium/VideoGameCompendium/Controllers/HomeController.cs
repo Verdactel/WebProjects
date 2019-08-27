@@ -67,7 +67,7 @@ namespace VideoGameCompendium.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet("{userID}")]
         public IActionResult Collection(string userID)
         {
             List<Game> collection = db.GetCollection(userID);
@@ -83,9 +83,21 @@ namespace VideoGameCompendium.Controllers
         public IActionResult UserProfile()
         {
             User user = db.GetUserByID(Request.Cookies["userID"]);
+            ViewBag.Comments = db.GetComments(user.ID);
+            ViewBag.Followers = db.GetFollowers(user.ID);
             return View(user);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult UserProfile(string id)
+        {
+            User user = db.GetUserByID(id);
+            ViewBag.Comments = db.GetComments(id);
+            ViewBag.Followers = db.GetFollowers(id);
+            return View(user);
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult UserAccount()
         {
@@ -132,7 +144,7 @@ namespace VideoGameCompendium.Controllers
                 }
 
                 #endregion
-                // This save the path to the record
+                // Save the path to the record
                 System.IO.File.Delete(Path.Combine("", webPath + @"\Images\" + user.Image));
                 user.Image = newFilename;
                 db.EditUser(Request.Cookies["userID"], user);
@@ -150,6 +162,8 @@ namespace VideoGameCompendium.Controllers
             User user = db.GetUserByID(Request.Cookies["userID"]);
             ViewBag.User = user;
 
+            List<Comment> comments = db.GetComments(id.ToString());
+            ViewBag.Comments = comments;
             //if (game != null)
             return View(game);
             //else
@@ -183,6 +197,22 @@ namespace VideoGameCompendium.Controllers
                 return new JsonResult("Error");
             else
                 return new JsonResult(db.GetCollection(userId).Select(x=>x.Id).ToList().Contains(gameId) ? 1 : 2);
+        }
+
+        [HttpPost]
+        public IActionResult PostCommentGame([Bind("text, SenderId, RecieverId, PostTime")] Comment comment, int gameID)
+        {
+            Game game = db.GetGameByID(gameID);
+            db.AddComment(ref comment);
+            return RedirectToAction("Game", "Home", game);
+        }
+
+        [HttpPost]
+        public IActionResult PostCommentUser([Bind("text, SenderId, RecieverId, PostTime")] Comment comment, string userID)
+        {
+            User user = db.GetUserByID(userID);
+            db.AddComment(ref comment);
+            return RedirectToAction("UserProfile", "Home", user);
         }
     }
 }

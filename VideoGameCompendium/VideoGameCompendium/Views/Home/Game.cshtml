@@ -1,31 +1,51 @@
 ﻿@using VideoGameCompendium.Models;
 @using VideoGameCompendium.Controllers;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model Game
 
 @section AddToHead
-{
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="~/Scripts/ratingScript.js"></script>
-	<script src="~/Scripts/collectionScript.js"></script>
+    {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/ratingScript.js"></script>
+    <script src="~/Scripts/collectionScript.js"></script>
 }
 
 @section Title
-{
-	Home
+    {
+    Home
 }
 
 <div class="row">
-	<div class="column"><img src="@Model.Image" /></div>
-	<partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
-	<div class="dubleColumn">@Model.Description</div>
+    <div class="column"><img src="@Model.Image" /></div>
+    <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
+    <div class="dubleColumn">@Model.Description</div>
 </div>
 
 <partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 
 <div class="row">
-	<div class="column">Rating</div>
+    <div class="column">Rating</div>
 </div>
 
 <div class="row">
-	<div class="column">Comments</div>
+    <div class="column">
+        <label>Comments</label>
+        @if (ViewBag.Comments != null)
+        {
+            <div class="CommentContainer">
+                @foreach (Comment comment in ViewBag.Comments)
+                {
+                    <partial name="_DisplayCommentPartial" model="comment" />
+                }
+                <form class="CommentForm" action="~/Home/PostCommentGame" method="post">
+                    <input type="text" name="text" />
+                    <input type="submit" name="submit" value="Post" />
+                    <input type="hidden" name="SenderId" value="@HttpContextAccessor.HttpContext.Request.Cookies["userID"]" />
+                    <input type="hidden" name="ReceiverId" value="@Model.Id" />
+                    <input type="hidden" name="gameID" value="@Model.Id" />
+                    <input type="hidden" name="PostTime" value="@DateTime.Now" />
+                </form>
+            </div>
+        }
+    </div>
 </div>

@@ -1,0 +1,7 @@
+﻿@using VideoGameCompendium.Models
+@model User
+
+<div>
+    <a asp-action="UserProfile" asp-controller="Home" asp-route-id="@Model.ID">@Model.Username</a>
+    <img src="@Model.Image" />
+</div>
