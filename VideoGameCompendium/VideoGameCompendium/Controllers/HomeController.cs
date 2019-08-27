@@ -35,6 +35,7 @@ namespace VideoGameCompendium.Controllers
         [HttpGet]
         public IActionResult Browse()
         {
+            
             return View(db.BrowseGames());
         }
 
@@ -47,6 +48,12 @@ namespace VideoGameCompendium.Controllers
             }
 
             return View(db.BrowseGames());
+        }
+
+        [HttpPost("{platform},{genre},{esrb}")]
+        public IActionResult Browse(string platform, string genre, int esrb)
+        {
+            return View();
         }
 
         [Authorize]
@@ -208,7 +215,7 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostCommentUser([Bind("text, SenderId, RecieverId, PostTime")] Comment comment, string userID)
+        public IActionResult PostCommentUser(Comment comment, string userID)
         {
             User user = db.GetUserByID(userID);
             db.AddComment(ref comment);
