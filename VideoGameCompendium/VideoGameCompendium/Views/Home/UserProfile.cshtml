@@ -13,7 +13,7 @@
 			<div><img src="~/Images/@Model.Image" /></div>
 			<div><p>@Model.Bio</p></div>
 		</div>
-			<div class="row">View Collection</div>
+			<a asp-action="Collection" asp-controller="Home" asp-route-userID="@Model.ID">View Collection</a> @*test this*@
 			<div class="row">Favorites</div>
 	</div>
 

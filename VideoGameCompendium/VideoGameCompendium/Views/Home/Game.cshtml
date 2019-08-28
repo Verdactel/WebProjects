@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="~/Scripts/ratingScript.js"></script>
     <script src="~/Scripts/collectionScript.js"></script>
+    <script src="~/Scripts/favoritesScript.js"></script>
 }
 
 @section Title
@@ -23,6 +24,7 @@
 </div>
 
 <partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+<partial name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 
 <div>
 	<form method="post" action="~/Home/PostCommentGame">

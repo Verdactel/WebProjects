@@ -134,20 +134,21 @@ namespace VideoGameCompendium.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> UserAccount(string id, string bio, string prevBio, IFormFile file)
+        public async Task<IActionResult> UserAccount(string id, string bio, IFormFile file)
         {
             User user = db.GetUserByID(id);
 
             if (bio == null)
             {
-                if (prevBio == null)
-                {
-                    bio = "";
-                }
-                bio = prevBio;
+                if (user.Bio == null) bio = "";
+
+                user.Bio = bio;
+            }
+            else
+            {
+                user.Bio = bio;
             }
 
-            user.Bio = bio;
             db.EditUser(id, user);
 
             // Code to upload image if not null
@@ -225,6 +226,22 @@ namespace VideoGameCompendium.Controllers
                 return new JsonResult("Error");
             else
                 return new JsonResult(db.GetCollection(userId).Select(x => x.Id).ToList().Contains(gameId) ? 1 : 2);
+        }
+
+        [HttpGet]
+        public JsonResult DoFavorites(int gameId, string userId)
+        {
+            bool result = false;
+            var val = db.GetFavorites(userId).Select(x => x.Id).ToList().Contains(gameId);
+            if (db.GetFavorites(userId).Select(x => x.Id).ToList().Contains(gameId))
+                result = db.RemoveFromFavorites(userId, gameId.ToString());
+            else
+                result = db.AddToFavorites(userId, gameId.ToString());
+
+            if (!result)
+                return new JsonResult("Error");
+            else
+                return new JsonResult(db.GetFavorites(userId).Select(x => x.Id).ToList().Contains(gameId) ? 1 : 2);
         }
 
         [HttpPost]
