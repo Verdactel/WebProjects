@@ -120,7 +120,7 @@ namespace VideoGameCompendium.Controllers
             User user = db.GetUserByID(id);
             ViewBag.Comments = db.GetComments(id);
             ViewBag.Followers = db.GetFollowers(id);
-            ViewBag.User = user;
+            ViewBag.User = db.GetUserByID(Request.Cookies["userID"]);
             return View(user);
         }
 
@@ -237,11 +237,26 @@ namespace VideoGameCompendium.Controllers
                 result = db.RemoveFromFavorites(userId, gameId.ToString());
             else
                 result = db.AddToFavorites(userId, gameId.ToString());
+            if(!result){
+                return new JsonResult("Error");
+            }
+            else
+                return new JsonResult(db.GetFavorites(userId).Select(x => x.Id).ToList().Contains(gameId) ? 1 : 2);
+
+        }
+        public JsonResult DoFollow(string loggedInId, string leaderId)
+        {
+            bool result = false;
+
+            if (db.IsFollowing(loggedInId, leaderId))
+                result = db.Unfollow(loggedInId, leaderId);
+            else
+                result = db.AddFollower(loggedInId, leaderId);
 
             if (!result)
                 return new JsonResult("Error");
             else
-                return new JsonResult(db.GetFavorites(userId).Select(x => x.Id).ToList().Contains(gameId) ? 1 : 2);
+                return new JsonResult(db.IsFollowing(loggedInId, leaderId) ? 1 : 2);
         }
 
         [HttpPost]

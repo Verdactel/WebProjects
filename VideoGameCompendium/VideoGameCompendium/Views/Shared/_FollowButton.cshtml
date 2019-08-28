@@ -1,0 +1,20 @@
+﻿@using VideoGameCompendium.Models;
+@using VideoGameCompendium.Controllers;
+@model User
+
+@if (Model != null && ViewBag.User != null && Model.ID != ViewBag.User.ID)
+{
+	<button class="followButton">
+		<div class="hidden loggedInId">@ViewBag.User.ID</div>
+		<div class="hidden leaderId">@Model.ID</div>
+
+		@if (HomeController.db.IsFollowing(ViewBag.User.ID, Model.ID))
+		{
+		<p>Unfollow</p>
+		}
+		else
+		{
+		<p>Follow!</p>
+		}
+	</button>
+}

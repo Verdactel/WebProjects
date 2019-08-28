@@ -9,31 +9,35 @@
     <script src="~/Scripts/ratingScript.js"></script>
     <script src="~/Scripts/collectionScript.js"></script>
     <script src="~/Scripts/favoritesScript.js"></script>
+	<script src="~/Scripts/followScript.js"></script>
 }
 
 @section Title
     {
-    Home
+	Home
 }
 
 
 <div class="row">
-    <div class="column"><img src="@Model.Image" /></div>
-    <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
-    <div class="dubleColumn">@Model.Description</div>
+	<div class="column"><img src="@Model.Image" /></div>
+	<partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
+	<div class="dubleColumn">@Model.Description</div>
 </div>
 
 <partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 <partial name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 
 <div>
-	<form method="post" action="~/Home/PostCommentGame">
-		Make Comment:
-		<input type="text" name="text" placeholder="Text" />
-		<input type="hidden" name="userId" value="@ViewBag.User.ID" />
-		<input type="hidden" name="gameId" value="@Model.Id" />
-		<input type="submit" value="Submit" />
-	</form>
+	@if (ViewBag.User != null)
+	{
+		<form method="post" action="~/Home/PostCommentGame">
+			Make Comment:
+			<input type="text" name="text" placeholder="Text" />
+			<input type="hidden" name="userId" value="@ViewBag.User.ID" />
+			<input type="hidden" name="gameId" value="@Model.Id" />
+			<input type="submit" value="Submit" />
+		</form>
+	}
 
 	@if (ViewBag.Comments != null)
 	{
