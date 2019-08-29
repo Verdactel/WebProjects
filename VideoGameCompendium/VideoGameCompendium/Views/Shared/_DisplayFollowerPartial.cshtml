@@ -1,7 +1,7 @@
 ﻿@using VideoGameCompendium.Models
 @model User
 
-<div>
+<div class="Round">
     <a asp-action="UserProfile" asp-controller="Home" asp-route-id="@Model.ID">@Model.Username</a>
     <img src="~/Images/@Model.Image" />
 </div>
