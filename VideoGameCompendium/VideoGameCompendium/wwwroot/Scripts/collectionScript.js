@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 					}
 				}
 			}
-			xmlhttp.open("GET", "http://localhost:53225/Home/DoCollection?gameId=" + gameId + "&userId=" + userId, "true"); // configure object (method, URL, async)
+			xmlhttp.open("GET", "http://192.168.43.160:53227/Home/DoCollection?gameId=" + gameId + "&userId=" + userId, "true"); // configure object (method, URL, async)
 			xmlhttp.send();
 		};
 	}
