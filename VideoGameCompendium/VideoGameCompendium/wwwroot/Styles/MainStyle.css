@@ -426,7 +426,14 @@ select {
     color: #E02176;
     background-color: transparent;
     text-align-last: center;
+    transition: all 1s;
 }
+
+    select:hover {
+        border: 2px solid #E02176;
+        color: white;
+        background-color: #6B1039;
+    }
 
 .SearchForm {
     margin-top: 10px;
