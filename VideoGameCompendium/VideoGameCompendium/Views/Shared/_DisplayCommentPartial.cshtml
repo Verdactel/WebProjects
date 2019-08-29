@@ -4,6 +4,6 @@
 
 <div class="Comment">
     <a asp-action="UserProfile" asp-controller="Home" asp-route-id="@Model.SenderId">@(HomeController.db.GetUserByID(Model.SenderId).Username)</a>
-    <p>@Model.PostTime</p>
+	<p>@Model.PostTime.ToString("HH:mm MM/dd")</p>
     <p>@Model.Text</p>
 </div>

@@ -364,3 +364,15 @@ header {
 .hidden {
     display: none;
 }
+
+.Padding10 {
+	padding:10px;
+}
+
+.Comment {
+	border: solid 2px #E02176;
+	background-color: #9C1753;
+	margin: 25px;
+	padding: 10px;
+}
+

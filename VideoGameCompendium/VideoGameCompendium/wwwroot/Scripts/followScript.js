@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 					}
 				}
 			}
-			xmlhttp.open("GET", "http://localhost:53225/Home/DoFollow?loggedInId=" + loggedInId + "&leaderId=" + leaderId, "true"); // configure object (method, URL, async)
+			xmlhttp.open("GET", "http://192.168.43.160:53227/Home/DoFollow?loggedInId=" + loggedInId + "&leaderId=" + leaderId, "true"); // configure object (method, URL, async)
 			xmlhttp.send();
 		};
 	}
