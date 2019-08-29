@@ -2,6 +2,9 @@
 @model User
 
 <div>
-    <a asp-action="UserProfile" asp-controller="Home" asp-route-id="@Model.ID">@Model.Username</a>
-    <img src="~/Images/@Model.Image" />
+    <a asp-action="UserProfile" asp-controller="Home" asp-route-id="@Model.ID">
+        @Model.Username
+        <img src="~/Images/@Model.Image" />
+    </a>
+
 </div>
