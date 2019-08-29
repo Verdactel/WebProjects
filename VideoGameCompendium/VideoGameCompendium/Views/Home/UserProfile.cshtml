@@ -18,7 +18,7 @@
         <div><p>@Model.Bio</p></div>
     </div>
     <a asp-action="Collection" asp-controller="Home" asp-route-userID="@Model.ID">View Collection</a> @*test this*@
-
+    <label>Favorites: </label>
     <div class="row">
         @foreach (Game game in ViewBag.Favorites)
         {
