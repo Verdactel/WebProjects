@@ -6,15 +6,19 @@
         <img src="@Model.Image">
     </a>
     <a href="~/Home/Game?id=@Model.Id">
-        <p>@Model.Title</p>
+        <p class="Block">@Model.Title</p>
+
+       
         <div class="ListInfo">@foreach (var item in Model.Genres)
             {
-                <p>@item</p>
+                <p class="Inline Exo">@item</p>
             }
         </div>
+
+        <p> </p>
         <div class="ListInfo">@foreach (var item in Model.Platforms)
         {
-            <p>@item</p>
+            <p class="Inline Exo">@item</p>
         }
         </div>
     </a>

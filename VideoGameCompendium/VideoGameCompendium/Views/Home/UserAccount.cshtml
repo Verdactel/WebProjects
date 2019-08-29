@@ -7,15 +7,19 @@
 }
 
 <div class="row">
-    <div class="column userAccountImage"><img src="~/Images/@Model.Image" /></div>
-    <div class="dubleColumn">
+    <div class="column userAccountImage">
+        <img src="~/Images/@Model.Image" />
+
         <form class="userAccountForm" action="/Home/UserAccount" method="post" enctype="multipart/form-data">
             <input type="hidden" name="ID" value="@Model.ID" />
             <input type="hidden" name="prevBio" value="@Model.Bio" />
-            <input type="file" name="file" />
-            This is the spot for avatar<br />
-            <input type="text" name="Bio" placeholder="@Model.Bio" /><br />
-            <input type="submit" value="Save" />
+            <input type="file" name="file" /><br />
+           
+            <input type="text" name="Bio" /><br />
+            <input class="Button" type="submit" value="Save" />
         </form>
+    </div>
+    <div class="column">
+       
     </div>
 </div>

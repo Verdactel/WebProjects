@@ -1,24 +1,32 @@
 ﻿.List {
     transition: all 1s;
-    height: 40px;
-    width: 1500px;
+    height: 110px;
+    width: 1200px;
     display: block;
     text-align:left;
 }
 .List img{
     display: none;
 }
-.List .ListInfo{
-    display:inline-block;
-    white-space:nowrap;
-}
-    .List .ListInfo p {
-        text-align: center;
-    } 
+.List .ListInfo {
+    display: inline;
+    white-space: nowrap;
 
+}
 .List p{
    margin:0 auto;
-   display:inline-block;
+}
+
+.Block{
+    display:block;
+}
+
+.Inline{
+    display:inline;
+}
+
+.Exo {
+    font-family: 'Exo', sans-serif;
 }
 
 
@@ -30,6 +38,7 @@
 .Grid .ListInfo{
     display:none;
 }
+
 
 .Grid .test{
     display: none;

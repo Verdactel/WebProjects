@@ -13,8 +13,8 @@
 <div class="ProfileContainer">
 
     <div>
-        <div><p>@Model.Username</p></div>
-        <div><img src="~/Images/@Model.Image" /></div>
+        <div><p class="UserName">@Model.Username</p></div>
+        <div><img class="ImageResize" src="~/Images/@Model.Image" /></div>
         <div><p>@Model.Bio</p></div>
     </div>
     <a asp-action="Collection" asp-controller="Home" asp-route-userID="@Model.ID">View Collection</a> @*test this*@
@@ -49,7 +49,7 @@
             <input type="text" name="text" placeholder="Text" />
             <input type="hidden" name="userId" value="@ViewBag.User.ID" />
             <input type="hidden" name="receiverId" value="@Model.ID" />
-            <input type="submit" value="Submit" />
+            <input class="ButtonVariant" type="submit" value="Submit" />
         </form>
 
         @if (ViewBag.Comments != null)
