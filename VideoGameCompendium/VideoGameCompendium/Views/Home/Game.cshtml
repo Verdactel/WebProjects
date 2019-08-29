@@ -3,60 +3,56 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model Game
 
-@section AddToHead
-    {
+@section AddToHead{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="~/Scripts/ratingScript.js"></script>
     <script src="~/Scripts/collectionScript.js"></script>
     <script src="~/Scripts/favoritesScript.js"></script>
-	<script src="~/Scripts/followScript.js"></script>
+    <script src="~/Scripts/followScript.js"></script>
 }
 
-@section Title
-    {
-	Home
+@section Title{
+    Home
 }
 
 <div>@Model.Title</div>
-    <div class="row">
-        <div><img class="ImageResize" src="@Model.Image" /></div>
-        
-        
+<div class="row">
+    <div><img class="ImageResize" src="@Model.Image" /></div>
 
-        <div class="dubleColumn Margin10 text">
-            @Model.Description
-            
-            <div>
-                <span>Rate Here!</span>
-                <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
-            </div>
+    <div class="dubleColumn Margin10 text">
+        @Model.Description
 
+        <div>
+            <span>Rate Here!</span>
+            <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
         </div>
-    </div>
 
-<partial  name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
-<partial  name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+    </div>
+</div>
+
+<partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+<partial name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 
 
 <div>
-	@if (ViewBag.User != null)
-	{
-		<form method="post" action="~/Home/PostCommentGame">
+    @if (ViewBag.User != null)
+    {
+        <form method="post" action="~/Home/PostCommentGame">
             <p>Make Comment:</p>
-			<input type="text" name="text" placeholder="Text" />
-			<input type="hidden" name="userId" value="@ViewBag.User.ID" />
-			<input type="hidden" name="gameId" value="@Model.Id" />
-			<input class="ButtonVariant"type="submit" value="Submit" />
-		</form>
-	}
+            <input type="text" name="text" placeholder="Text" />
+            <input type="hidden" name="userId" value="@ViewBag.User.ID" />
+            <input type="hidden" name="gameId" value="@Model.Id" />
+            <input class="ButtonVariant" type="submit" value="Submit" />
+        </form>
+    }
 
-	@if (ViewBag.Comments != null)
-	{
-		<div>
-			@foreach (Comment comment in ViewBag.Comments)
-			{
-				<partial name="_DisplayCommentPartial" model="comment" />
-			}
-		</div>
-	}
+    @if (ViewBag.Comments != null)
+    {
+        <div>
+            @foreach (Comment comment in ViewBag.Comments)
+            {
+                <partial name="_DisplayCommentPartial" model="comment" />
+            }
+        </div>
+    }
 </div>
