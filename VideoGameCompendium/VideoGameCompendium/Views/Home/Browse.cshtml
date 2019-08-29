@@ -16,10 +16,10 @@
 </div>
 
 <form class="FilterForm" action="~/Home/Browse" method="get">
-    <input type="text" name="platform" placeholder="Search by Platform..." /><br />
+    <input type="text" name="platform" placeholder="Search by Platform..." />
     <select asp-items="@ViewBag.Genres" name="genre">
         <option value="">Select One</option>
-    </select><br />
+    </select>
     <select asp-items="@ViewBag.ESRB" name="esrb">
         <option value="">Select One</option>
     </select>

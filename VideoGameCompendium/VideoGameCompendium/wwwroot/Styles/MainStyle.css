@@ -24,13 +24,12 @@
 
 
 .indexContent {
-    display: inline-block;
+    display: block;
     text-align: center;
     font-family: 'Exo', sans-serif;
-    position: absolute;
-    left: 29.7%;
+    /*position: absolute;*/
+    /*left: 29.7%;*/
     top: 10%;
-
     /*Animation Stuff*/
     -webkit-animation-name: fadeInTranslate;
     -webkit-animation-fill-mode: forwards;
@@ -38,9 +37,9 @@
     -webkit-animation-iteration-count: 1;
 }
 
-.indexContent span{
-    font-size: 1.5em;
-}
+    .indexContent span {
+        font-size: 1.5em;
+    }
 
 .indexTitle {
     font-size: 2.5em;
@@ -91,6 +90,7 @@ header {
     color: #171717;
     height: 50px;
     padding: 10px 0px 0px 0px;
+    text-align: center;
 }
 
 /*NavButton Styling*/
@@ -106,7 +106,6 @@ header {
     margin-left: 1%;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
-
     -webkit-transition: color 0.75s;
     -webkit-animation-name: fadeIn;
     -webkit-animation-fill-mode: forwards;
@@ -137,8 +136,8 @@ header {
     -webkit-transition: background-color 1s;
 }
 
-.ListInfo{
-    display:none;
+.ListInfo {
+    display: none;
 }
 
 
@@ -153,11 +152,11 @@ header {
     justify-content: center;
 }
 
-.GameCard img:hover {
-    transition-timing-function: ease;
-    height: 175px;
-    width: 175px;
-}
+    .GameCard img:hover {
+        transition-timing-function: ease;
+        height: 175px;
+        width: 175px;
+    }
 
 .GameCard:hover {
     background-color: #6B1039;
@@ -190,9 +189,9 @@ header {
     color: #B30050;
 }
 /*User Account stuff*/
-.TextBox{
-    width:1000px;
-    height:500px;
+.TextBox {
+    width: 1000px;
+    height: 500px;
 }
 
 .Button {
@@ -201,17 +200,17 @@ header {
     border: 2px solid #E02176;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    width:100px;
-    height:50px;
-    font-size:20px;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
     font-family: 'Exo', sans-serif;
 }
 
-.Button:hover {
-    background-color: white; 
-    border: 2px solid #9C1753;
-    color: #9C1753;
-}
+    .Button:hover {
+        background-color: white;
+        border: 2px solid #9C1753;
+        color: #9C1753;
+    }
 
 
 .ButtonVariant {
@@ -242,7 +241,7 @@ header {
     height: 100px;
     font-size: 18px;
     font-family: 'Exo', sans-serif;
-    margin-left:25px;
+    margin-left: 25px;
 }
 
     .ButtonBig:hover {
@@ -251,62 +250,64 @@ header {
         color: #9C1753;
     }
 
-    .Comment{
-        color:white;
-        font-family:'Exo', sans-serif;
-        font-size:30px;
-    }
+.Comment {
+    color: white;
+    font-family: 'Exo', sans-serif;
+    font-size: 30px;
+}
 
 /*Profile Stuff*/
-.ProfileContainer{
-    color:white;
+.ProfileContainer {
+    color: white;
     font-family: 'Exo', sans-serif;
     font-size: 20px;
 }
 
-.ProfileContainer a {
-    transition: all 1s;
+    .ProfileContainer a {
+        transition: all 1s;
+    }
+
+        .ProfileContainer a:visited {
+            color: white;
+        }
+
+        .ProfileContainer a:hover {
+            color: #FF2688;
+        }
+
+.UserName {
+    font-size: 40px;
+    display: inline-block;
+    margin: 10px auto;
 }
 
-.ProfileContainer a:visited{
-    color:white;
-}
-
-.ProfileContainer a:hover {
-    color: #FF2688;
-}
-
-.UserName{
-    font-size:40px;
-    display:inline-block;
-    margin:10px auto;
-}
 .text {
     color: white;
     font-family: 'Exo', sans-serif;
     border: solid 2px #E02176;
     background-color: #9C1753
 }
-.Round img{
+
+.Round img {
     border: 2px solid #E02176;
-    border-radius:90px;
+    border-radius: 90px;
     width: 90px;
     height: 90px;
 }
-    
+
 /*Image Stuff*/
 .ImageResize {
     width: 400px;
     height: 400px;
 }
 
-.Margin10{
-    margin:auto 10px;
+.Margin10 {
+    margin: auto 10px;
 }
 
-.toleft{
-    position:relative;
-    left:30%;
+.toleft {
+    position: relative;
+    left: 30%;
 }
 
 .row {
@@ -330,9 +331,9 @@ header {
     }
 
 
-.BottomRightMargin{
-    margin-top:30px;
-    margin-left:30px;
+.BottomRightMargin {
+    margin-top: 30px;
+    margin-left: 30px;
 }
 
 .dubleColumn {
@@ -357,7 +358,7 @@ header {
     display: inline-block;
     position: relative;
     font-family: FontAwesome;
-    color:black;
+    color: black;
 }
 
     .stars-outer::before {
@@ -398,19 +399,74 @@ header {
 }
 
 .Padding10 {
-	padding:10px;
+    padding: 10px;
 }
 
 .Comment {
-	border: solid 2px #E02176;
-	background-color: #9C1753;
-	margin: 25px;
-	padding: 10px;
+    border: solid 2px #E02176;
+    background-color: #9C1753;
+    margin: 25px;
+    padding: 10px;
 }
 
-input[type=text]{
+input[type=text] {
+    color: white;
+    border: 2px solid #E02176;
     background-color: transparent;
 }
-select{
+
+input[type=password] {
+    color: white;
+    border: 2px solid #E02176;
     background-color: transparent;
+}
+
+select {
+    border: 2px solid #E02176;
+    color: #E02176;
+    background-color: transparent;
+    text-align-last: center;
+}
+
+.SearchForm {
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .SearchForm input {
+        margin: 5px;
+        padding: 5px;
+    }
+
+        .SearchForm input[type=submit] {
+            height: 32px;
+        }
+
+.FilterForm {
+    text-align: center;
+}
+
+    .FilterForm input {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .FilterForm select {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .FilterForm input[type=submit] {
+        height: 32px;
+    }
+
+::placeholder {
+    text-align: center;
+    color: #E02176;
+}
+
+.GameLayoutToggle {
+    margin-left: 17%;
+    margin-bottom: -35px
 }
