@@ -2,61 +2,64 @@
 @model User
 
 @section Title{
-	Profile
+    Profile
 }
 
 @section AddToHead
     {
-	<script src="~/Scripts/followScript.js"></script>
+    <script src="~/Scripts/followScript.js"></script>
 }
 
 <div class="ProfileContainer">
 
-	<div>
-		<div><p>@Model.Username</p></div>
-		<div><img src="~/Images/@Model.Image" /></div>
-		<div><p>@Model.Bio</p></div>
-	</div>
-	<a asp-action="Collection" asp-controller="Home" asp-route-userID="@Model.ID">View Collection</a> @*test this*@
-			<div class="row">Favorites</div>
+    <div>
+        <div><p>@Model.Username</p></div>
+        <div><img src="~/Images/@Model.Image" /></div>
+        <div><p>@Model.Bio</p></div>
+    </div>
+    <a asp-action="Collection" asp-controller="Home" asp-route-userID="@Model.ID">View Collection</a> @*test this*@
 
-	<div class="row">View Collection</div>
-	<div class="row">Favorites</div>
+    <div class="row">
+        @foreach (Game game in ViewBag.Favorites)
+        {
+            <partial name="_DisplayFavoritesPartial" model="game" />
+        }
+    </div>
 
-	<div>
-		<partial name="_FollowButton" model="Model" />
-	</div>
+    <div>
+        <partial name="_FollowButton" model="Model" />
+    </div>
 
-	<div>
-		<label>Followers</label>
-		@if (ViewBag.Followers != null)
-		{
-			<div>
-				@foreach (User user in ViewBag.Followers)
-				{
-					<partial name="_DisplayFollowerPartial" model="user" />
-				}
-			</div>
-		}
-	</div>
+    <div>
+        <label>Followers</label>
+        @if (ViewBag.Followers != null)
+        {
+            <div>
+                @foreach (User user in ViewBag.Followers)
+                {
+                    <partial name="_DisplayFollowerPartial" model="user" />
+                }
+            </div>
+        }
+    </div>
 
-	<div>
-		<form method="post" action="~/Home/PostCommentUser">
-			Make Comment:
-			<input type="text" name="text" placeholder="Text" />
-			<input type="hidden" name="userId" value="@ViewBag.User.ID" />
-			<input type="hidden" name="receiverId" value="@Model.ID" />
-			<input type="submit" value="Submit" />
-		</form>
+    <div>
+        <form method="post" action="~/Home/PostCommentUser">
+            Make Comment:
+            <input type="text" name="text" placeholder="Text" />
+            <input type="hidden" name="userId" value="@ViewBag.User.ID" />
+            <input type="hidden" name="receiverId" value="@Model.ID" />
+            <input type="submit" value="Submit" />
+        </form>
 
-		@if (ViewBag.Comments != null)
-		{
-			<div>
-				@foreach (Comment comment in ViewBag.Comments)
-				{
-					<partial name="_DisplayCommentPartial" model="comment" />
-				}
-			</div>
-		}
-	</div>
+        @if (ViewBag.Comments != null)
+        {
+            <div>
+                @foreach (Comment comment in ViewBag.Comments)
+                {
+                    <partial name="_DisplayCommentPartial" model="comment" />
+                }
+            </div>
+        }
+    </div>
 </div>

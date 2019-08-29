@@ -34,7 +34,7 @@ namespace VideoGameCompendium.Controllers
         }
 
         [HttpGet]
-        public IActionResult Browse()
+        public IActionResult Browse(string search = "", string platform = "", string genre = "", int esrb = 12)
         {
             #region Get Genres
             IEnumerable<string> genres = db.GetGenres();
@@ -54,7 +54,8 @@ namespace VideoGameCompendium.Controllers
 
             ViewBag.ESRB = esrbRatings;
             #endregion
-            return View(db.BrowseGames());
+            List<Game> toReturn = db.BrowseGames(search, platform, genre, esrb);
+            return View(toReturn);
 
         }
 
@@ -76,13 +77,6 @@ namespace VideoGameCompendium.Controllers
             ViewBag.ESRB = esrbRatings;
             #endregion
             return View(db.BrowseGames());
-        }
-
-        [HttpPost]
-        public IActionResult Browse(string search = "", string platform = "", string genre = "", int esrb = 12)
-        {
-            List<Game> toReturn = db.BrowseGames(search, platform, genre, esrb);
-            return View(toReturn);
         }
 
         [Authorize]
@@ -120,6 +114,7 @@ namespace VideoGameCompendium.Controllers
             User user = db.GetUserByID(id);
             ViewBag.Comments = db.GetComments(id);
             ViewBag.Followers = db.GetFollowers(id);
+            ViewBag.Favorites = db.GetFavorites(id);
             ViewBag.User = db.GetUserByID(Request.Cookies["userID"]);
             return View(user);
         }
