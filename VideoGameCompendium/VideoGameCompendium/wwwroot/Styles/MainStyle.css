@@ -10,19 +10,40 @@
     }
 }
 
+@keyframes fadeInTranslate {
+    0% {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 100;
+        transform: translateY(50px);
+    }
+}
+
 
 .indexContent {
-    border: 1px solid red;
     display: inline-block;
     text-align: center;
     font-family: 'Exo', sans-serif;
     position: absolute;
-    left: 40%;
-    top: 25%;
+    left: 29.7%;
+    top: 10%;
+
+    /*Animation Stuff*/
+    -webkit-animation-name: fadeInTranslate;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-duration: 2.0s;
+    -webkit-animation-iteration-count: 1;
+}
+
+.indexContent span{
+    font-size: 1.5em;
 }
 
 .indexTitle {
-    font-size: 5em;
+    font-size: 2.5em;
 }
 
 * {
@@ -36,7 +57,7 @@
 
 html,
 body {
-    background-color: grey;
+    background-image: linear-gradient(-90deg, #6B1039, grey, #6B1039);
     margin: 0;
     height: 100%;
     position: relative;
@@ -85,6 +106,7 @@ header {
     margin-left: 1%;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: bold;
+
     -webkit-transition: color 0.75s;
     -webkit-animation-name: fadeIn;
     -webkit-animation-fill-mode: forwards;
@@ -115,35 +137,41 @@ header {
     -webkit-transition: background-color 1s;
 }
 
-    /*Game Card Styling + Animations*/
-    .GameCard img {
-        height: 150px;
-        width: 150px;
-        padding: 5px;
-        transition-timing-function: ease;
-        transition: all 1s;
-        justify-content: center;
-    }
+.ListInfo{
+    display:none;
+}
 
-        .GameCard img:hover {
-            transition-timing-function: ease;
-            height: 175px;
-            width: 175px;
-        }
 
-    .GameCard:hover {
-        background-color: #6B1039;
-        -webkit-transition: background-color 0.75s;
-    }
 
-    .GameCard a:link {
-        color: white;
-        text-decoration: none;
-    }
+/*Game Card Styling + Animations*/
+.GameCard img {
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    transition-timing-function: ease;
+    transition: all 1s;
+    justify-content: center;
+}
 
-    .GameCard a:visited {
-        color: white;
-    }
+.GameCard img:hover {
+    transition-timing-function: ease;
+    height: 175px;
+    width: 175px;
+}
+
+.GameCard:hover {
+    background-color: #6B1039;
+    -webkit-transition: background-color 0.75s;
+}
+
+.GameCard a:link {
+    color: white;
+    text-decoration: none;
+}
+
+.GameCard a:visited {
+    color: white;
+}
 
 .gameDisplay {
     margin: auto;

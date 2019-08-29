@@ -7,5 +7,15 @@
     </a>
     <a href="~/Home/Game?id=@Model.Id">
         <p>@Model.Title</p>
+        <div class="ListInfo">@foreach (var item in Model.Genres)
+            {
+                <p>@item</p>
+            }
+        </div>
+        <div class="ListInfo">@foreach (var item in Model.Platforms)
+        {
+            <p>@item</p>
+        }
+        </div>
     </a>
 </div>

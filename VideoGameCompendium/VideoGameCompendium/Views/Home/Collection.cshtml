@@ -5,13 +5,15 @@
     Video Game Collection
 }
 <div class="DisplayContainer">
-    <div class="List" id="display">
+    <div class="gameDisplay" id="display">
 
         @* Display Information based on class *@
         @foreach (Game game in Model)
         {
-            <partial name="_DisplayGamesBrowsePartial" model="@game" />
-        }
+            <div class="GameCard">
+                <partial name="_DisplayGamesBrowsePartial" model="@game" />
+                </div>
+         }
     </div>
 </div>
 
