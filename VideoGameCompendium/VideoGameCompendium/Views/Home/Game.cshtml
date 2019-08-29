@@ -19,17 +19,22 @@
 
 <div>@Model.Title</div>
 <div class="row">
-	<div><img class="ImageResize" src="@Model.Image" /></div>
-	
-	<div class="dubleColumn Margin10 Padding10 text">
+    <div><img class="ImageResize" src="@Model.Image" /></div>
+
+    <div class="dubleColumn Margin10 text">
         @Model.Description
         
+        <div>
+            <span>Rate Here!</span>
+            <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
+        </div>
+
     </div>
 </div>
 
-<partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
-<partial name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
-<partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
+<partial  name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+<partial  name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+
 
 <div>
 	@if (ViewBag.User != null)
