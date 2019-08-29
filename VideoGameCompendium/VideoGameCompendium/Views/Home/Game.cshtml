@@ -27,15 +27,15 @@
     </div>
 </div>
 
-<partial  name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
-<partial  name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+<partial name="_CollectionButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
+<partial name="_FavoritesButton" model="new Tuple<Game, User> (Model, ViewBag.User)" />
 <partial name="_RatingBar" model="new Tuple<Game, string> (Model, ViewBag.User?.ID)" />
 
 <div>
 	@if (ViewBag.User != null)
 	{
 		<form method="post" action="~/Home/PostCommentGame">
-            <p class="Comment">Make Comment:</p>
+            <p>Make Comment:</p>
 			<input type="text" name="text" placeholder="Text" />
 			<input type="hidden" name="userId" value="@ViewBag.User.ID" />
 			<input type="hidden" name="gameId" value="@Model.Id" />
