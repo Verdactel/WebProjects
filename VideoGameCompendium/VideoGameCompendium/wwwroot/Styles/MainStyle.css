@@ -396,3 +396,9 @@ header {
 .hidden {
     display: none;
 }
+input[type=text]{
+    background-color: transparent;
+}
+select{
+    background-color: transparent;
+}
