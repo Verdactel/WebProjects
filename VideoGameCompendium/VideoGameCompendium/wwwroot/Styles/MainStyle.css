@@ -262,11 +262,26 @@ header {
     display:inline-block;
     margin:10px auto;
 }
+.text {
+    color: white;
+    font-family: 'Exo', sans-serif;
+    border: solid 2px #E02176;
+    background-color: #9C1753
+}
     
 /*Image Stuff*/
 .ImageResize {
     width: 400px;
     height: 400px;
+}
+
+.Margin10{
+    margin:auto 10px;
+}
+
+.toleft{
+    position:relative;
+    left:30%;
 }
 
 .row {
