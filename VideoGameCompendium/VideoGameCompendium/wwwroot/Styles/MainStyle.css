@@ -376,3 +376,9 @@ header {
 	padding: 10px;
 }
 
+input[type=text]{
+    background-color: transparent;
+}
+select{
+    background-color: transparent;
+}
