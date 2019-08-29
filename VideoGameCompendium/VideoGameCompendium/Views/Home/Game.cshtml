@@ -17,7 +17,7 @@
 	Home
 }
 
-
+<div>@Model.Title</div>
     <div class="row">
         <div><img class="ImageResize" src="@Model.Image" /></div>
         
@@ -42,7 +42,7 @@
 	@if (ViewBag.User != null)
 	{
 		<form method="post" action="~/Home/PostCommentGame">
-            <p class="Comment">Make Comment:</p>
+            <p>Make Comment:</p>
 			<input type="text" name="text" placeholder="Text" />
 			<input type="hidden" name="userId" value="@ViewBag.User.ID" />
 			<input type="hidden" name="gameId" value="@Model.Id" />
