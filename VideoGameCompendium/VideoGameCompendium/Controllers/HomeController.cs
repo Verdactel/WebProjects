@@ -131,23 +131,26 @@ namespace VideoGameCompendium.Controllers
         [HttpPost]
         public async Task<IActionResult> UserAccount(string id, string bio, IFormFile file)
         {
+            var filetest = file;
+            if (bio == null && filetest == null)
+            {
+                return RedirectToAction("UserAccount", "Home");
+            }
             User user = db.GetUserByID(id);
 
             if (bio == null)
             {
-                if (user.Bio == null) bio = "";
-
-                user.Bio = bio;
+                if (user.Bio == null)
+                {
+                    user.Bio = "";
+                }
             }
             else
             {
                 user.Bio = bio;
             }
-
-            db.EditUser(id, user);
-
             // Code to upload image if not null
-            if (file != null || file.Length != 0)
+            if (filetest != null)
             {
                 #region Image
                 // Create a File Info 
@@ -170,9 +173,8 @@ namespace VideoGameCompendium.Controllers
                 // Save the path to the record
                 System.IO.File.Delete(Path.Combine("", webPath + @"\Images\" + user.Image));
                 user.Image = newFilename;
-                db.EditUser(Request.Cookies["userID"], user);
             }
-            //Response.Cookies.Delete("userID");
+            db.EditUser(id, user);
 
             return RedirectToAction("UserAccount", "Home");
         }

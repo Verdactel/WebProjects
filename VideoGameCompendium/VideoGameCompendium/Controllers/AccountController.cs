@@ -85,8 +85,9 @@ namespace VideoGameCompendium.Controllers
             #region Image
 
             User user = null;
+            var filetest = file;
             // Code to upload image if not null
-            if (file != null || file.Length != 0)
+            if (filetest != null)
             {
                 // Create a File Info 
                 FileInfo fi = new FileInfo(file.FileName);
@@ -106,6 +107,10 @@ namespace VideoGameCompendium.Controllers
 
                 //Create user
                 user = new User(username, password, "", newFilename, false);
+            }
+            else
+            {
+                user = new User(username, password, "", "DefaultUser.png", false);
             }
             #endregion
 

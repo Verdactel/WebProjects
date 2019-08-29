@@ -14,8 +14,15 @@
             <input type="hidden" name="ID" value="@Model.ID" />
             <input type="hidden" name="prevBio" value="@Model.Bio" />
             <input type="file" name="file" /><br />
-           
-            <input type="text" name="Bio" /><br />
+            <label>Bio: </label>
+            @if (Model.Bio != null || Model.Bio != "")
+            {
+                <input type="text" name="Bio" placeholder="@Model.Bio" /><br />
+            }
+            else
+            {
+                <input type="text" name="Bio" placeholder="Bio" /><br />
+            }
             <input class="Button" type="submit" value="Save" />
         </form>
     </div>
