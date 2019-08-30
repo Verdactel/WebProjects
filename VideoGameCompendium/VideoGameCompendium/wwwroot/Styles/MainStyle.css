@@ -470,3 +470,26 @@ select {
     margin-left: 17%;
     margin-bottom: -35px
 }
+
+.loginContainer {
+    text-align: center;
+}
+
+    .loginContainer input[type=submit] {
+        border: 2px solid #E02176;
+        color: white;
+        background-color: #9C1753;
+    }
+
+.SignupContainer{
+    text-align: center;
+}
+.SignupContainer input{
+    margin: 10px;
+}
+
+    .SignupContainer input[type=submit] {
+        border: 2px solid #E02176;
+        color: white;
+        background-color: #9C1753;
+    }
